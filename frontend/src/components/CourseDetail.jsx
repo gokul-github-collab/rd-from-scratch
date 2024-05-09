@@ -4,6 +4,7 @@ import api from '../api'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 
+
 const CourseDetail = () => {
     const [course, setCourse] = useState(null)
     const [isSuperuser, setIsSuperuser] = useState(false);
@@ -12,7 +13,10 @@ const CourseDetail = () => {
         fetchCourseDetail(id)
         checkSuperuser()
     }, [id])
-
+    const toggleCollapse = (id) => {
+        const body = document.getElementById(id);
+        body.hidden = !body.hidden;
+    };
     
     const fetchCourseDetail = (courseId) => {
         api.get(`/api/courses/${courseId}/`). 
@@ -39,7 +43,7 @@ const CourseDetail = () => {
 {course && <div>  
     
 <section>
-    
+
 <div className="container m-auto mt-5 py-6 px-6">
   <Link to="/courses" className="text-indigo-500 hover:text-indigo-600 flex items-center">
     <FaArrowLeft className='text-indigo-500 mr-2'/>Back to Course Listings
@@ -67,6 +71,16 @@ const CourseDetail = () => {
         <p className="mb-4">{course.tuition_fee} / semester</p>
       </div>
 
+      <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
+        <h3 className="text-indigo-800 text-lg font-bold mb-6">Course Program Outcomes</h3>
+        {course.pos.map((po) => (
+            <div>
+                {/* <h3 className="text-indigo-800 text-lg font-bold mb-2">Description</h3> */}
+                <p className="mb-4">{po.title}</p>
+                <p className="mb-4">{po.description}</p>
+            </div>
+         ))}
+    </div>
 
     </main>
 
