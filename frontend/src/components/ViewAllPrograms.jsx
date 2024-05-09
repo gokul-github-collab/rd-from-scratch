@@ -6,7 +6,8 @@ const ViewAllCourses = () => {
     <Link
       to="/courses"
       className="block bg-gradient-to-tr from-indigo-100 to-indigo-400 hover:from-pink-300 hover:to-yellow-300 ... text-center py-4 px-6 rounded-xl"
-      >View All Programs</Link>
+      >View All Programs
+    </Link>
     </section>
   )
 }

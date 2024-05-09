@@ -18,7 +18,6 @@ class Course(models.Model):
     description = models.TextField()
     location = models.CharField(max_length=100)
     tuition_fee = models.CharField(max_length=20)
-    # college = models.ForeignKey(College, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -39,7 +38,7 @@ class Semester(models.Model):
 class Po(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='pos')
 
 class Pso(models.Model):
     title = models.CharField(max_length=100)

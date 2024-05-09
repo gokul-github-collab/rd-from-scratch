@@ -50,11 +50,14 @@ class NoteDelete(generics.DestroyAPIView):
 
 
 class CoureListView(generics.ListCreateAPIView):
-    queryset = Course
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
+
+class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [AllowAny]
-
-    
 
 
 

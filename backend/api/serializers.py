@@ -25,13 +25,12 @@ class NoteSerializer(serializers.ModelSerializer):
 class PoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Po
-        fields = "__all__"
-
+        fields = ('id', 'title', 'description')
 
 class CourseSerializer(serializers.ModelSerializer):
-    pos = PoSerializer(many=True)
-    
+    pos = PoSerializer(many=True)  # Assuming Po has a ForeignKey relationship with Course
+
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos')
 
