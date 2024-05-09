@@ -4,6 +4,9 @@ import NotFound from './pages/NotFound'
 import Home from './pages/Home'
 import { BrowserRouter, Route, RouterProvider, Routes, Navigate } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoutes'
+import HomePage from './pages/HomePage'
+import CourseList from './components/CourseList'
+import MainLayout from './layouts/MainLayout'
 
 const Logout = () => {
   localStorage.clear()
@@ -23,9 +26,12 @@ function App() {
       <BrowserRouter>
       
       <Routes>
+          <Route path='/' element={<MainLayout />}>
+            
+          <Route index element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
+          <Route path='/courses' element={<ProtectedRoute> <CourseList /> </ProtectedRoute>} />
 
-          <Route index element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
-
+          </Route>
           <Route path='/login' element={<Login />} />
 
           <Route path='register' element={<Register />} />

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note
+from .models import Note, Course, Po, Pso, Semester
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,5 +22,16 @@ class NoteSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {"author": {"read_only": True}}
 
+class PoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Po
+        fields = "__all__"
 
+
+class CourseSerializer(serializers.ModelSerializer):
+    pos = PoSerializer(many=True)
+    
+    class Meta:
+        model = Course
+        fields = '__all__'
 
