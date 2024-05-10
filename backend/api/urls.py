@@ -8,6 +8,6 @@ urlpatterns = [
     path('check_superuser/', views.CheckSuperUser.as_view(), name='check_superuser'),
     path('courses/', views.CoureListView.as_view(), name='courses'),
     path("courses/<int:pk>/", views.CourseDetailView.as_view(), name='course-detail'),
-    
+    path("courses/delete/<int:pk>/", views.CourseDelete.as_view(), name="course-delete"),   
 
 ]

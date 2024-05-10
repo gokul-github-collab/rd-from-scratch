@@ -28,7 +28,7 @@ class PoSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description')
 
 class CourseSerializer(serializers.ModelSerializer):
-    pos = PoSerializer(many=True)  # Assuming Po has a ForeignKey relationship with Course
+    pos = PoSerializer(many=True, read_only=True)  
 
     class Meta:
         model = Course

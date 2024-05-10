@@ -3,20 +3,25 @@ import { useParams } from 'react-router-dom'
 import api from '../api'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Pos from './Pos'
 
 
 const CourseDetail = () => {
+
     const [course, setCourse] = useState(null)
+    const [courses, setCourses] = useState([])
     const [isSuperuser, setIsSuperuser] = useState(false);
+    const navigate = useNavigate()
     const {id} = useParams()
+
+
     useEffect(() => {
         fetchCourseDetail(id)
         checkSuperuser()
     }, [id])
-    const toggleCollapse = (id) => {
-        const body = document.getElementById(id);
-        body.hidden = !body.hidden;
-    };
+
     
     const fetchCourseDetail = (courseId) => {
         api.get(`/api/courses/${courseId}/`). 
@@ -34,13 +39,25 @@ const CourseDetail = () => {
             console.error("Error checking superuser:", err);
           });
       };
-    return (
- 
+
+      const handleDeleteCourse = async() =>{
+        if(window.confirm(`Are you sure you want to delete ${course.name}`)){
+          try{
+            await api.delete(`/api/courses/delete/${course.id}/`)
+            toast.success('Course deleted successfully')
+            navigate("/courses");
+          }catch(err){
+            alert(err)
+          }
+
+        }
+      }
+
+      
+    return ( <> 
+    
   
-  
-  <>
-   
-{course && <div>  
+  {course && <div>  
     
 <section>
 
@@ -80,7 +97,15 @@ const CourseDetail = () => {
                 <p className="mb-4">{po.description}</p>
             </div>
          ))}
+
+
+
+<div>
+
     </div>
+    </div>
+
+
 
     </main>
 
@@ -97,35 +122,33 @@ const CourseDetail = () => {
         <p className="my-2 bg-indigo-100 p-2 font-bold">5555-5555-5555</p>
       </div>
 
-      {isSuperuser && <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+      {isSuperuser && <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-xl font-bold mb-6">Manage Course</h3>
         <Link to={`/courses/${course.id}/edit`}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+              className="bg-gradient-to-tr from-indigo-500 to-indigo-700 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
           Edit Course
         </Link>
-        {/* <button onClick={handleDeleteCourse}
-                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+        <button onClick={handleDeleteCourse}
+                className="bg-gradient-to-tr from-red-500 to-red-700 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
           Delete Course
-        </button> */}
+        </button>
       </div>}
     </aside>
   </div>
 </div>
 </section>
 
-</div>
-
-}
+</div>}
   </>
  
-  
-  
-  
-  
-  
-  
-  
-  )
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+)
 }
 
 export default CourseDetail

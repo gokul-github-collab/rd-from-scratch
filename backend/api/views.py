@@ -61,6 +61,10 @@ class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class CourseDelete(generics.DestroyAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 
 

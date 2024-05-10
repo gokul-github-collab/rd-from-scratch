@@ -9,6 +9,7 @@ import MainLayout from './layouts/MainLayout'
 import CourseLayout from './layouts/CourseLayout'
 import CoursePage from './pages/CoursePage'
 import CourseDetail from './components/CourseDetail'
+import AddPrograms from './components/AddPrograms'
 const Logout = () => {
   localStorage.clear()
   return <Navigate to="/login" />
@@ -32,6 +33,7 @@ function App() {
           <Route index element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
           <Route path='/courses' element={<ProtectedRoute> <CourseLayout/> </ProtectedRoute>} />
           <Route path='/courses/:id' element={<ProtectedRoute> <CoursePage /> </ProtectedRoute>} />
+          <Route path='/add-course' element={ <ProtectedRoute> <AddPrograms /> </ProtectedRoute>} />
 
           </Route>
 
