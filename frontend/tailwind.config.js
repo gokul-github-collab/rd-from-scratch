@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+
       gridTemplateColumns:{
         '70/30': '70% 28%',
       },

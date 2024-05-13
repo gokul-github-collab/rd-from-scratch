@@ -4,13 +4,13 @@ import NotFound from './pages/NotFound'
 import { BrowserRouter, Route, RouterProvider, createBrowserRouter, createRoutesFromElements, Routes, Navigate } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoutes'
 import HomePage from './pages/HomePage'
-import CourseList from './components/CourseList'
 import MainLayout from './layouts/MainLayout'
 import CourseLayout from './layouts/CourseLayout'
 import CoursePage from './pages/CoursePage'
-import CourseDetail from './components/CourseDetail'
 import AddPrograms from './components/AddPrograms'
 import EditCoursePage from './pages/EditCoursePage'
+import PoForm from './components/PoForm'
+import PsoForm from './components/PsoForm'
 const Logout = () => {
   localStorage.clear()
   return <Navigate to="/login" />
@@ -36,7 +36,8 @@ function App() {
           <Route path='/courses/:id' element={<ProtectedRoute> <CoursePage /> </ProtectedRoute>} />
           <Route path='/add-course' element={ <ProtectedRoute> <AddPrograms /> </ProtectedRoute>} />
           <Route path='/courses/edit/:id' element={ <ProtectedRoute> <EditCoursePage /> </ProtectedRoute>} />
-
+          <Route path='/add-po/:id' element={ <ProtectedRoute> <PoForm /> </ProtectedRoute>} />
+          <Route path='/add-pso/:id' element={ <ProtectedRoute> <PsoForm /> </ProtectedRoute>} />
           </Route>
 
           <Route path='/login' element={<Login />} />

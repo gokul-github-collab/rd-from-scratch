@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
 from .models import Note, Course, Po, Pso, Semester
@@ -38,7 +38,6 @@ class NoteListCreateView(generics.ListCreateAPIView):
             serializer.save(author=self.request.user)
         else:
             print(serializer.errors)
-        # return super().perform_create(serializer)
 
 class NoteDelete(generics.DestroyAPIView):
     serializer_class = NoteSerializer
@@ -59,12 +58,18 @@ class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CourseSerializer
     permission_classes = [AllowAny]
 
-
-
 class CourseDelete(generics.DestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
 
+class PoCreateListView(generics.ListCreateAPIView):
+    queryset = Po.objects.all()
+    serializer_class = PoSerializer
+    permission_classes = [IsAuthenticated]
 
 
+class PsoCreateListView(generics.ListCreateAPIView):
+    queryset = Pso.objects.all()
+    serializer_class = PsoSerializer
+    permission_classes = [AllowAny]

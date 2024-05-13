@@ -25,12 +25,12 @@ class NoteSerializer(serializers.ModelSerializer):
 class PoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Po
-        fields = ('id', 'title', 'description')
+        fields = ('id', 'title', 'description', 'course')
 
 class PsoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pso
-        fields = ('id', 'title', 'description')
+        fields = ('id', 'title', 'description', 'course')
 
 class CourseSerializer(serializers.ModelSerializer):
     pos = PoSerializer(many=True, read_only=True)  

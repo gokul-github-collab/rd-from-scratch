@@ -6,7 +6,7 @@ import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { SlArrowDown } from "react-icons/sl";
-
+import PoForm from './PoForm'
 
 const FAQItem = ({ question, pos }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -122,6 +122,18 @@ const CourseDetail = () => {
 
       <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-indigo-800 text-lg font-bold mb-6">Course Program Outcomes</h3>
+          <Link
+    to={`/add-po/${course.id}`}
+    className="inline-block mb-1 bg-gradient-to-tr from-indigo-500 to-indigo-700 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+  >
+    Add Program Outcomes (PO's)
+  </Link>
+  <Link
+    to={`/add-pso/${course.id}`}
+    className="inline-block bg-gradient-to-tr from-[#ffccd9] to-[#ebe9ff] ml-1 text-gray-800 rounded-lg px-4 py-2 hover:bg-gradient-to-tr hover:from-[#ebe9ff] hover:to-[#ffccd9] hover:text-gray-800 shadow-md"
+  >
+    Add Program Specific Outcomes (PSO's)
+  </Link>
       <FAQItem 
         question="Program Outcome (PO's)"
         answers={[{ title: "Description", description: course.description }]} 
