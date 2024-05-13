@@ -27,10 +27,15 @@ class PoSerializer(serializers.ModelSerializer):
         model = Po
         fields = ('id', 'title', 'description')
 
+class PsoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pso
+        fields = ('id', 'title', 'description')
+
 class CourseSerializer(serializers.ModelSerializer):
     pos = PoSerializer(many=True, read_only=True)  
-
+    psos = PoSerializer(many=True, read_only=True)  
     class Meta:
         model = Course
-        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos')
+        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos', 'psos')
 

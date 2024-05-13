@@ -5,13 +5,45 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import Pos from './Pos'
+import { SlArrowDown } from "react-icons/sl";
+
+
+const FAQItem = ({ question, pos }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="border border-gray-200 rounded p-4 mb-2">
+      <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
+        <h2 className="text-lg font-medium">{question}</h2>
+        <SlArrowDown />
+      </div>
+      {isOpen && (
+        <div className="mt-2">
+
+          {pos && (
+            <div>
+              {pos.map((item) => (
+                <div key={item.id} className="mb-2">
+                  <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 
 const CourseDetail = () => {
 
     const [course, setCourse] = useState(null)
-    const [courses, setCourses] = useState([])
     const [isSuperuser, setIsSuperuser] = useState(false);
     const navigate = useNavigate()
     const {id} = useParams()
@@ -90,19 +122,16 @@ const CourseDetail = () => {
 
       <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-indigo-800 text-lg font-bold mb-6">Course Program Outcomes</h3>
-        {course.pos.map((po) => (
-            <div>
-                {/* <h3 className="text-indigo-800 text-lg font-bold mb-2">Description</h3> */}
-                <p className="mb-4">{po.title}</p>
-                <p className="mb-4">{po.description}</p>
-            </div>
-         ))}
-
-
-
-<div>
-
-    </div>
+      <FAQItem 
+        question="Program Outcome (PO's)"
+        answers={[{ title: "Description", description: course.description }]} 
+        pos={course.pos} 
+      />
+      <FAQItem 
+        question="Program Specific Outcome (PSO's)"
+        answers={[{ title: "Description", description: course.description }]} 
+        pos={course.psos} 
+      />
     </div>
 
 
@@ -124,7 +153,7 @@ const CourseDetail = () => {
 
       {isSuperuser && <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-xl font-bold mb-6">Manage Course</h3>
-        <Link to={`/courses/${course.id}/edit`}
+        <Link to={`/courses/edit/${course.id}`}
               className="bg-gradient-to-tr from-indigo-500 to-indigo-700 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
           Edit Course
         </Link>
