@@ -11,6 +11,9 @@ import AddPrograms from './components/AddPrograms'
 import EditCoursePage from './pages/EditCoursePage'
 import PoForm from './components/PoForm'
 import PsoForm from './components/PsoForm'
+import PoUpdateForm from './components/PoUpdateForm'
+import PsoUpdateForm from './components/PsoUpdateForm'
+
 const Logout = () => {
   localStorage.clear()
   return <Navigate to="/login" />
@@ -37,7 +40,10 @@ function App() {
           <Route path='/add-course' element={ <ProtectedRoute> <AddPrograms /> </ProtectedRoute>} />
           <Route path='/courses/edit/:id' element={ <ProtectedRoute> <EditCoursePage /> </ProtectedRoute>} />
           <Route path='/add-po/:id' element={ <ProtectedRoute> <PoForm /> </ProtectedRoute>} />
+          <Route path='/edit-po/:id' element={ <ProtectedRoute> <PoUpdateForm /> </ProtectedRoute>} />
           <Route path='/add-pso/:id' element={ <ProtectedRoute> <PsoForm /> </ProtectedRoute>} />
+          <Route path='/edit-pso/:id' element={ <ProtectedRoute> <PsoUpdateForm /> </ProtectedRoute>} />
+
           </Route>
 
           <Route path='/login' element={<Login />} />

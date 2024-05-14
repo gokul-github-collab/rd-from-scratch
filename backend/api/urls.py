@@ -10,6 +10,10 @@ urlpatterns = [
     path("courses/<int:pk>/", views.CourseDetailView.as_view(), name='course-detail'),
     path("courses/delete/<int:pk>/", views.CourseDelete.as_view(), name="course-delete"),  
     path("pos/", views.PoCreateListView.as_view(), name="po-list"),
+    path("pos/<int:pk>/", views.PoDetail.as_view(), name="po"),
+    path("pos/delete/<int:pk>/", views.PoDelete.as_view(), name="po-list"),
     path("psos/", views.PsoCreateListView.as_view(), name="pso-list"),
+    path("psos/<int:pk>/", views.PsoDetail.as_view(), name="pso"),
+    path("psos/delete/<int:pk>/", views.PsoDelete.as_view(), name="pso-list"),
 
 ]

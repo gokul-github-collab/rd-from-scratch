@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import api from '../api'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-
+import NotFound from '../pages/NotFound'
 
 
 function classNames(...classes) {
@@ -13,8 +13,13 @@ function classNames(...classes) {
 
 
 const AddPrograms = () => {
+  const [isSuperUser, setIsSuperuser] = useState(false)
 
     const [agreed, setAgreed] = useState(false)
+
+    useEffect(()=>{
+      checkSuperuser()
+    },[])
 
 
     const [course, setCourse] = useState([])
@@ -26,6 +31,17 @@ const AddPrograms = () => {
 
 
     const navigate = useNavigate()
+
+    const checkSuperuser = () => {
+      api.get("/api/check_superuser/")
+        .then((res) => {
+          console.log("Response from check_superuser:", res);
+          setIsSuperuser(res.data.is_superuser);
+        })
+        .catch((err) => {
+          console.error("Error checking superuser:", err);
+        });
+    };
 
     const getCourse = ( ) => {
         api.get("/api/courses/").
@@ -48,7 +64,8 @@ const AddPrograms = () => {
     <>
     
     
-    
+   {isSuperUser ?
+
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
@@ -159,7 +176,9 @@ const AddPrograms = () => {
           </button>
         </div>
       </form>
-    </div>
+    </div> : <NotFound />
+
+    }
     
     
     

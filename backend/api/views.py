@@ -68,8 +68,26 @@ class PoCreateListView(generics.ListCreateAPIView):
     serializer_class = PoSerializer
     permission_classes = [IsAuthenticated]
 
+class PoDetail(generics.RetrieveUpdateAPIView):
+    queryset = Po.objects.all()
+    serializer_class = PoSerializer
+    permission_classes = [AllowAny]
+
+class PoDelete(generics.DestroyAPIView):
+    queryset = Po.objects.all()
+    serializer_class = PoSerializer
+    permission_classes = [IsAuthenticated]
 
 class PsoCreateListView(generics.ListCreateAPIView):
     queryset = Pso.objects.all()
     serializer_class = PsoSerializer
     permission_classes = [AllowAny]
+
+class PsoDetail(generics.RetrieveUpdateAPIView):
+    queryset = Pso.objects.all()
+    serializer_class = PsoSerializer
+    permission_classes = [IsAuthenticated]
+class PsoDelete(generics.DestroyAPIView):
+    queryset = Pso.objects.all()
+    serializer_class = PsoSerializer
+    permission_classes = [IsAuthenticated]

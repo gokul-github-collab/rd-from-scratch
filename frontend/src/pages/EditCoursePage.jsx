@@ -56,7 +56,7 @@ const EditCoursePage = () => {
 
         api.put(`/api/courses/${id}/`, updatedCourse)
             .then((res) => {
-                toast.success('Course updated successfully');
+                toast('Course updated successfully');
                 navigate(`/courses/${id}`);
             })
             .catch((err) => toast.error(err));

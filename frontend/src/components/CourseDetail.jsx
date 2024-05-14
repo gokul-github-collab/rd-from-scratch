@@ -6,10 +6,23 @@ import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { SlArrowDown } from "react-icons/sl";
-import PoForm from './PoForm'
 
-const FAQItem = ({ question, pos }) => {
+const FAQItem1 = ({ question, pos }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSuperuser, setIsSuperuser] = useState(false)
+
+   
+
+  const checkSuperuser = () => {
+    api.get("/api/check_superuser/")
+      .then((res) => {
+        console.log("Response from check_superuser:", res);
+        setIsSuperuser(res.data.is_superuser);
+      })
+      .catch((err) => {
+        console.error("Error checking superuser:", err);
+      });
+  };
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -30,6 +43,66 @@ const FAQItem = ({ question, pos }) => {
                 <div key={item.id} className="mb-2">
                   <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
                   <p className="text-gray-600">{item.description}</p>
+                  {isSuperuser && 
+                  <Link to={`/edit-po/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PO</Link>  
+                  }
+
+
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+const FAQItem2 = ({ question, pos }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSuperuser, setIsSuperuser] = useState(false)
+ const [po, setPo] = useState(null)
+  useEffect(()=>{
+    checkSuperuser()
+
+  },[])
+
+
+
+  const checkSuperuser = () => {
+    api.get("/api/check_superuser/")
+      .then((res) => {
+        console.log("Response from check_superuser:", res);
+        setIsSuperuser(res.data.is_superuser);
+      })
+      .catch((err) => {
+        console.error("Error checking superuser:", err);
+      });
+  };
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="border border-gray-200 rounded p-4 mb-2">
+      <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
+        <h2 className="text-lg font-medium">{question}</h2>
+        <SlArrowDown />
+      </div>
+      {isOpen && (
+        <div className="mt-2">
+
+          {pos && (
+            <div>
+              {pos.map((item) => (
+                <div key={item.id} className="mb-2">
+                  <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
+                  <p className="text-gray-600">{item.description}</p>
+                  {isSuperuser && 
+                  <Link to={`/edit-pso/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PO</Link>
+                  }
                 </div>
               ))}
             </div>
@@ -76,7 +149,7 @@ const CourseDetail = () => {
         if(window.confirm(`Are you sure you want to delete ${course.name}`)){
           try{
             await api.delete(`/api/courses/delete/${course.id}/`)
-            toast.success('Course deleted successfully')
+            toast.error('Course deleted successfully')
             navigate("/courses");
           }catch(err){
             alert(err)
@@ -122,24 +195,28 @@ const CourseDetail = () => {
 
       <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-indigo-800 text-lg font-bold mb-6">Course Program Outcomes</h3>
+        {isSuperuser &&<div>
+          
           <Link
     to={`/add-po/${course.id}`}
-    className="inline-block mb-1 bg-gradient-to-tr from-indigo-500 to-indigo-700 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+    className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
   >
     Add Program Outcomes (PO's)
   </Link>
-  <Link
+          <Link
     to={`/add-pso/${course.id}`}
-    className="inline-block bg-gradient-to-tr from-[#ffccd9] to-[#ebe9ff] ml-1 text-gray-800 rounded-lg px-4 py-2 hover:bg-gradient-to-tr hover:from-[#ebe9ff] hover:to-[#ffccd9] hover:text-gray-800 shadow-md"
+    className="inline-block bg-gradient-to-tr from-[#ffccd9] to-[#ebe9ff] ml-1 mb-1 text-gray-800 rounded-lg px-4 py-2 hover:bg-gradient-to-tr hover:from-[#ebe9ff] hover:to-[#ffccd9] hover:text-gray-800 shadow-md"
   >
     Add Program Specific Outcomes (PSO's)
   </Link>
-      <FAQItem 
+
+        </div>}
+      <FAQItem1
         question="Program Outcome (PO's)"
         answers={[{ title: "Description", description: course.description }]} 
-        pos={course.pos} 
+        pos={course.pos} id={course.pos.id}
       />
-      <FAQItem 
+      <FAQItem2
         question="Program Specific Outcome (PSO's)"
         answers={[{ title: "Description", description: course.description }]} 
         pos={course.psos} 
