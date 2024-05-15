@@ -5,38 +5,7 @@ import api from '../api';
 import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
 import Ai from '../assets/images/Ai.jpg'
 import Ai1 from '../assets/images/Ai1.png'
-const SyllabusDetail = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const [syllabus, setSyllabus] = useState(null);
-  const [course, setCourse] = useState(null);
-
-  useEffect(() => {
-    getSyllabus(id);
-  }, [id]);
-
-  const getSyllabus = (id) => {
-    api.get(`/api/syllabus/${id}/`)
-      .then((res) => {
-        setSyllabus(res.data);
-        // Once the syllabus is fetched, get the course details
-        getCourse(res.data.course);
-      })
-      .catch((err) => {
-        toast.error(err.message || 'Failed to fetch syllabus');
-      });
-  };
-
-  const getCourse = (courseId) => {
-    api.get(`/api/courses/${courseId}/`)
-      .then((res) => {
-        setCourse(res.data);
-      })
-      .catch((err) => {
-        toast.error(err.message || 'Failed to fetch course');
-      });
-  };
+const AbouPage = () => {
 
   return (
 <>
@@ -209,4 +178,4 @@ const SyllabusDetail = () => {
   );
 };
 
-export default SyllabusDetail;
+export default AbouPage;

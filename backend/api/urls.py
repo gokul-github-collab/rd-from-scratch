@@ -22,6 +22,6 @@ urlpatterns = [
     path("psos/delete/<int:pk>/", views.PsoDelete.as_view(), name="pso-delete"),
 
     path("syllabus/", views.SyllabusListView.as_view(), name='syllabus-list'),
-    
+    path("syllabus/<int:pk>/", views.SyllabusDetailView.as_view(), name='syllabus-detail'), 
 
 ]

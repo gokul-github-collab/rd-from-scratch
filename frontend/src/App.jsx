@@ -14,7 +14,8 @@ import PsoForm from './components/PsoForm'
 import PoUpdateForm from './components/PoUpdateForm'
 import PsoUpdateForm from './components/PsoUpdateForm'
 import AddSyllabus from './components/AddSyllabus'
-
+import SyllabusDetail from './components/SyllabusDetail'
+import AbouPage from './pages/AboutPage'
 const Logout = () => {
   localStorage.clear()
   return <Navigate to="/login" />
@@ -33,8 +34,11 @@ function App() {
       <BrowserRouter>
       
       <Routes>
+        
 
           <Route path='/' element={<MainLayout />}>
+          
+          <Route path='/about' element={<AbouPage />} />
           <Route index element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
           <Route path='/courses' element={<ProtectedRoute> <CourseLayout/> </ProtectedRoute>} />
           <Route path='/courses/:id' element={<ProtectedRoute> <CoursePage /> </ProtectedRoute>} />
@@ -49,6 +53,8 @@ function App() {
 
 
           <Route path='/add-syllabus/:id' element={<ProtectedRoute> <AddSyllabus /> </ProtectedRoute>} />
+          <Route path='/syllabus/:id' element={<ProtectedRoute> <SyllabusDetail /> </ProtectedRoute>} />
+
 
           </Route>
 

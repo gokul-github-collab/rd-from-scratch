@@ -100,4 +100,9 @@ class SyllabusListView(generics.ListCreateAPIView):
     serializer_class = SyllabusSerializer
     permission_classes = [AllowAny]
 
+
+class SyllabusDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Syllabus.objects.all()
+    serializer_class = SyllabusSerializer
+    permission_classes = [AllowAny]
     

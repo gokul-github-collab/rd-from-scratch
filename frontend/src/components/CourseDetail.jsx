@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import { SlArrowDown } from "react-icons/sl";
 import DeletePo from './DeletePo'
 import DeletePso from './DeletePso'
+import { FaAsterisk } from "react-icons/fa6"
 
 const FAQItem1 = ({ question, pos }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -240,7 +241,7 @@ const CourseDetail = () => {
     Add Syllabus
   </Link>}
         {course.syllabus && course.syllabus.map((syllabus) => (
-    <Link to={`/api/syllabus/${syllabus.id}`} className='block' key={syllabus.id}>{syllabus.year}</Link>
+    <Link to={`/syllabus/${syllabus.id}`} className='block text-indigo-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> {syllabus.year}</Link>
 ))}
 
       </div>
