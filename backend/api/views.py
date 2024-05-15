@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -51,7 +51,7 @@ class NoteDelete(generics.DestroyAPIView):
 class CoureListView(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
@@ -87,7 +87,17 @@ class PsoDetail(generics.RetrieveUpdateAPIView):
     queryset = Pso.objects.all()
     serializer_class = PsoSerializer
     permission_classes = [IsAuthenticated]
+
 class PsoDelete(generics.DestroyAPIView):
     queryset = Pso.objects.all()
     serializer_class = PsoSerializer
     permission_classes = [IsAuthenticated]
+
+
+
+class SyllabusListView(generics.ListCreateAPIView):
+    queryset = Syllabus.objects.all()
+    serializer_class = SyllabusSerializer
+    permission_classes = [AllowAny]
+
+    

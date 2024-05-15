@@ -1,14 +1,11 @@
 import React from 'react'
-import { toast } from 'react-toastify'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import api from '../api'
+import { toast } from 'react-toastify'
 import NotFound from '../pages/NotFound'
-import ForbiddenPage from '../pages/ForbiddenPage'
-const PoForm = () => {
-    
-    
+import api from '../api'
+
+const AddSyllabus = () => {
     const navigate = useNavigate()
     const {id} = useParams()
     
@@ -16,8 +13,7 @@ const PoForm = () => {
       
     const [isSuperUser, setIsSuperuser] = useState(false)
          
-        const [title, setTitle] = useState('')
-        const [description, setDescription] = useState('')
+        const [year, setYear] = useState('')
         const [course, setCourse] = useState(onecourse ? onecourse.id: "")
         
         useEffect(() => {
@@ -53,28 +49,22 @@ const PoForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const createPo = {
-            title,
-            description,
+        const createSyllabus = {
+            year,
             course: onecourse ? onecourse.id : null
         };
     
-        api.post(`/api/pos/`, createPo)
+        api.post(`/api/syllabus/`, createSyllabus)
             .then((res) => {
-                toast.success('Po created successfully');
+                toast.success('Syllabus created successfully');
                 navigate(`/courses/${id}`);
             })
             .catch((err) => toast.error(err));
     };
     
-
-
   return (
     <>
-    
-    
-    
-   {isSuperUser ?  <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+         {isSuperUser ?  <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"
@@ -88,7 +78,7 @@ const PoForm = () => {
         />
       </div>
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Program Outcomes (PO's)</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Syllabus</h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
         </p>
@@ -99,16 +89,16 @@ const PoForm = () => {
 
 
           <div className="sm:col-span-2">
-            <label htmlFor="title" className="block text-sm font-semibold leading-6 text-gray-900">
-              PO Title
+            <label htmlFor="year" className="block text-sm font-semibold leading-6 text-gray-900">
+              Syllabus Year
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="title"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                name="year"
+                id="year"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -130,22 +120,6 @@ const PoForm = () => {
             </div>
           </div>
 
-          <div className="sm:col-span-2">
-            <label htmlFor="description" className="block text-sm font-semibold leading-6 text-gray-900">
-              Description
-            </label>
-            <div className="mt-2.5">
-              <textarea
-                name="description"
-                id="description"
-                rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-  
-              />
-            </div>
-          </div>
         </div>
         <div className="mt-10">
           <button
@@ -157,12 +131,8 @@ const PoForm = () => {
         </div>
       </form>
     </div>: <NotFound />}
-    
-    
-
-
     </>
   )
 }
 
-export default PoForm
+export default AddSyllabus

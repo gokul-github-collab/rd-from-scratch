@@ -17,25 +17,27 @@ const DeletePso = ({ id }) => {
             .catch((err) => toast.error(err));
     };
 
-    const deletePso = () => {
+    const deletePso = async () => {
         if (window.confirm(`Are you sure want to delete ${pso ? pso.title : ""}`)) {
-            api.delete(`/api/psos/delete/${id}/`)
-                .then(() => {
-                    toast.error("Program Outcome Deleted successfully");
-                    console.log(pso.course)
-                    navigate(`/courses/${pso.course}/`);
-                })
-                .catch((err) => toast.error(err));
-        navigate(`/courses/${pso.course}/`);
+            try {
+                await api.delete(`/api/psos/delete/${id}/`);
+                console.log(pso.course);
+                navigate(`/courses/${pso.course}/`);
+                toast.error("Program Outcome Deleted successfully");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000); // Adjust the timeout duration as needed
+            } catch (err) {
+                toast.error(err.message);
             }
-        navigate(`/courses/${pso.course}/`);
+        }
     };
-
+    
     return (
         <>
             <button
                 onClick={deletePso}
-                className="inline-block bg-gradient-to-tr from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md"
+                className="inline-block ml-1 mt-1 bg-gradient-to-tr from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md"
             >
                 Delete PSO
             </button>

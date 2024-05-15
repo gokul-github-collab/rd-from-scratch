@@ -13,6 +13,7 @@ import PoForm from './components/PoForm'
 import PsoForm from './components/PsoForm'
 import PoUpdateForm from './components/PoUpdateForm'
 import PsoUpdateForm from './components/PsoUpdateForm'
+import AddSyllabus from './components/AddSyllabus'
 
 const Logout = () => {
   localStorage.clear()
@@ -38,7 +39,7 @@ function App() {
           <Route path='/courses' element={<ProtectedRoute> <CourseLayout/> </ProtectedRoute>} />
           <Route path='/courses/:id' element={<ProtectedRoute> <CoursePage /> </ProtectedRoute>} />
           <Route path='/add-course' element={ <ProtectedRoute> <AddPrograms /> </ProtectedRoute>} />
-          
+
           <Route path='/courses/edit/:id' element={ <ProtectedRoute> <EditCoursePage /> </ProtectedRoute>} />
           <Route path='/add-po/:id' element={ <ProtectedRoute> <PoForm /> </ProtectedRoute>} />
           <Route path='/edit-po/:id' element={ <ProtectedRoute> <PoUpdateForm /> </ProtectedRoute>} />
@@ -46,10 +47,15 @@ function App() {
           <Route path='/add-pso/:id' element={ <ProtectedRoute> <PsoForm /> </ProtectedRoute>} />
           <Route path='/edit-pso/:id' element={ <ProtectedRoute> <PsoUpdateForm /> </ProtectedRoute>} />
 
+
+          <Route path='/add-syllabus/:id' element={<ProtectedRoute> <AddSyllabus /> </ProtectedRoute>} />
+
           </Route>
 
           <Route path='/login' element={<Login />} />
 
+          <Route path="/logout" element={<Logout />} />
+          
           <Route path='register' element={<Register />} />
 
           <Route path="*" element={<NotFound />} />

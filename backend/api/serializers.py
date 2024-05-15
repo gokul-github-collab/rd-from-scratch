@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Course, Po, Pso, Semester
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,6 +22,30 @@ class NoteSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {"author": {"read_only": True}}
 
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ("id", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark" )
+
+
+
+class SemesterSerializer(serializers.ModelSerializer):
+    subjects = SubjectSerializer(many=True, read_only=True)
+
+    class Meta:
+        model =  Semester
+        fields = ("id", "title", "course", "subjects")
+
+
+class SyllabusSerializer(serializers.ModelSerializer):
+    sem = SemesterSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Syllabus
+        fields = ("id", "year", "course", "sem")
+
 class PoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Po
@@ -35,7 +59,8 @@ class PsoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     pos = PoSerializer(many=True, read_only=True)  
     psos = PoSerializer(many=True, read_only=True)  
+    syllabus = SyllabusSerializer(many=True, read_only=True)
     class Meta:
         model = Course
-        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos', 'psos')
+        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos', 'psos', "syllabus")
 
