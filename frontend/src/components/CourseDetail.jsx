@@ -6,12 +6,13 @@ import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { SlArrowDown } from "react-icons/sl";
-
+import DeletePo from './DeletePo'
+import DeletePso from './DeletePso'
 const FAQItem1 = ({ question, pos }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuperuser, setIsSuperuser] = useState(false)
 
-   
+   useEffect(()=>{checkSuperuser()},[])
 
   const checkSuperuser = () => {
     api.get("/api/check_superuser/")
@@ -44,10 +45,11 @@ const FAQItem1 = ({ question, pos }) => {
                   <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
                   <p className="text-gray-600">{item.description}</p>
                   {isSuperuser && 
-                  <Link to={`/edit-po/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PO</Link>  
+                  <Link to={`/edit-po/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PO</Link>
                   }
-
-
+{isSuperuser &&
+                  <DeletePo id={item.id} />
+                  }
                 </div>
               ))}
             </div>
@@ -101,8 +103,13 @@ const FAQItem2 = ({ question, pos }) => {
                   <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
                   <p className="text-gray-600">{item.description}</p>
                   {isSuperuser && 
-                  <Link to={`/edit-pso/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PO</Link>
+                  <Link to={`/edit-pso/${item.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Edit PSO</Link>
                   }
+                  {isSuperuser &&
+                  
+                  <DeletePso id={item.id} />
+                  }
+                  
                 </div>
               ))}
             </div>
