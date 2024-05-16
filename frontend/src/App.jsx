@@ -18,6 +18,9 @@ import SyllabusDetail from './components/SyllabusDetail'
 import AbouPage from './pages/AboutPage'
 import AddSemester from './components/AddSemester'
 import EditSemester from './components/EditSemester'
+import AddSubject from  './components/AddSubject'
+import SubjectPage from './pages/SubjectPage'
+import AddCourseOutcome from './components/AddCourseOutcome'
 
 const Logout = () => {
   localStorage.clear()
@@ -60,6 +63,15 @@ function App() {
 
           <Route path='/add-semester/:sid/:cid' element={<ProtectedRoute> <AddSemester /> </ProtectedRoute>} />
           <Route path='/edit-semester/:id' element={<ProtectedRoute> <EditSemester /> </ProtectedRoute>} />
+
+          <Route path='/syllabus/:sid/subject/:id' element={<ProtectedRoute> <SubjectPage /> </ProtectedRoute>} />
+          <Route path='/subject/:id' element={<ProtectedRoute> <SubjectPage /> </ProtectedRoute>} />
+          <Route path='/add-subject/:id' element={<ProtectedRoute> <AddSubject /> </ProtectedRoute>} />
+
+
+          <Route path='add-course-outcome/:id' element={<ProtectedRoute> <AddCourseOutcome /> </ProtectedRoute>} />
+          <Route path='/syllabus/:sid/subject/:ssid/add-course-outcome/:id' element={<ProtectedRoute> <AddCourseOutcome /> </ProtectedRoute>} />
+          <Route path='/subject/:ssid/add-course-outcome/:id' element={<ProtectedRoute> <AddCourseOutcome /> </ProtectedRoute>} />
 
           </Route>
 

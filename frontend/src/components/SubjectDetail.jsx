@@ -1,0 +1,139 @@
+import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { useEffect, useState } from 'react'
+import api from '../api'
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
+
+export default function SubjectDetail() {
+    const {id} = useParams()
+
+    useEffect(()=>{
+        getSubject(id)
+    }, [id])
+
+    const [subject, setSubject] = useState(null)
+
+    const getSubject = (id) => {
+        api.get(`/api/subject/${id}/`). 
+        then((res)=> setSubject(res.data)). 
+        catch(err => toast.error(err))
+    }
+  return (
+    <div className='mt-20 p-5'>
+      <div className="px-4 sm:px-0">
+        <h3 className="text-base font-semibold leading-7 text-gray-900">{ subject? subject.name: ""}</h3>
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
+      </div>
+      <div className="mt-6 border-t border-gray-100">
+        <dl className="divide-y divide-gray-100">
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Subject name</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.name: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Course Code</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.course_code: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Lecture Tutorial Practical Credit</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.ltpc: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Prerequisite</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.prerequisite: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Internal Mark</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.internal_mark: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">External Mark</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.external_mark: ""}</dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+  <div className="text-sm font-medium leading-6 text-gray-900">
+    <p>Course Outcome</p>
+    <Link to={`add-course-outcome/${subject? subject.id: ""}`}  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
+    </div>
+
+  <div className="relative overflow-x-auto">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    
+                    <tr>
+                        <th scope="col" className="px-6 py-3">
+                            Co
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Description
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            U / AP
+                        </th>
+                    </tr>
+         
+                </thead>
+                <tbody>
+                   
+                {subject && subject.co && subject.co.map((co) => (
+            <tr key={co.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td className="px-6 py-4">{co.title}</td>
+              <td className="px-6 py-4">{co.description}</td>
+              <td className="px-6 py-4">{co.uap}</td>
+            </tr>
+          ))}
+                </tbody>
+            </table>
+        </div>
+</div>
+   
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
+              qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
+              pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
+            <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
+                <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                  <div className="flex w-0 flex-1 items-center">
+                    <PaperClipIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                    <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                      <span className="truncate font-medium">resume_back_end_developer.pdf</span>
+                      <span className="flex-shrink-0 text-gray-400">2.4mb</span>
+                    </div>
+                  </div>
+                  <div className="ml-4 flex-shrink-0">
+                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Download
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                  <div className="flex w-0 flex-1 items-center">
+                    <PaperClipIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                    <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                      <span className="truncate font-medium">coverletter_back_end_developer.pdf</span>
+                      <span className="flex-shrink-0 text-gray-400">4.5mb</span>
+                    </div>
+                  </div>
+                  <div className="ml-4 flex-shrink-0">
+                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Download
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  )
+}

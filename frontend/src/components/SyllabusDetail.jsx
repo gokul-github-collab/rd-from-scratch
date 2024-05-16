@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const SyllabusDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+const [isSuperUser, setIsSuperuser] = useState(false)
   const [syllabus, setSyllabus] = useState(null);
   const [course, setCourse] = useState(null);
 
@@ -19,6 +19,7 @@ const SyllabusDetail = () => {
 
   useEffect(() => {
     getSyllabus(id);
+    checkSuperuser()
   }, [id]);
 
   const getSyllabus = (id) => {
@@ -32,7 +33,16 @@ const SyllabusDetail = () => {
         toast.error(err.message || 'Failed to fetch syllabus');
       });
   };
-
+  const checkSuperuser = () => {
+    api.get("/api/check_superuser/")
+      .then((res) => {
+        console.log("Response from check_superuser:", res);
+        setIsSuperuser(res.data.is_superuser);
+      })
+      .catch((err) => {
+        console.error("Error checking superuser:", err);
+      });
+  };
   const getCourse = (courseId) => {
     api.get(`/api/courses/${courseId}/`)
       .then((res) => {

@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, SemesterSylSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseOutcomeSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -151,3 +151,19 @@ class SubjectsBySemesterView(generics.ListCreateAPIView):
         # Retrieve subjects related to the semester
         subjects = Subject.objects.filter(semester=semester)
         return subjects
+    
+class CourseOutcomeListView(generics.ListCreateAPIView):
+    queryset = CourseOutcome.objects.all()
+    serializer_class = CourseOutcomeSerializer
+    permission_classes = [AllowAny]
+
+
+class CourseOutcomeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CourseOutcome.objects.all()
+    serializer_class = CourseOutcomeSerializer
+    permission_classes = [AllowAny]
+
+class CourseOutcomeDeleteView(generics.DestroyAPIView):
+    queryset = CourseOutcome.objects.all()
+    serializer_class = CourseOutcomeSerializer
+    permission_classes = [AllowAny]

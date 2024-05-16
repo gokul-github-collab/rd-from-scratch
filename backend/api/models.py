@@ -44,13 +44,24 @@ class Subject(models.Model):
     name = models.CharField(max_length=200)
     course_code = models.CharField(max_length=100, unique=True)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subjects')
-    ltpc = models.CharField(max_length=50)
+    ltpc = models.CharField(max_length=50, blank=True, null=True)
     prerequisite = models.CharField(max_length=300, blank=True, null=True)
-    external_mark = models.IntegerField()
-    internal_mark = models.IntegerField()
+    external_mark = models.IntegerField(blank=True, null=True)
+    internal_mark = models.IntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
         return self.name + " - " + self.semester.title + " - " + self.semester.syllabus.year
+    
+
+class CourseOutcome(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    uap = models.CharField(max_length=100)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="co")
+    def __str__(self) -> str:
+        return self.title 
+    
+
 
 class Po(models.Model):
     title = models.CharField(max_length=100)

@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 const SemesterDetail = ({ semId }) => {
   const [semester, setSemester] = useState(null);
   const navigate = useNavigate();
+  const [isSuperUser, setIsSuperuser] = useState(false)
 
   useEffect(() => {
     getSemester(semId);
+    checkSuperuser()
   }, [semId]);
 
   const getSemester = (id) => {
@@ -17,6 +19,17 @@ const SemesterDetail = ({ semId }) => {
         setSemester(res.data);
       })
       .catch((err) => toast.error(err));
+  };
+  
+  const checkSuperuser = () => {
+    api.get("/api/check_superuser/")
+      .then((res) => {
+        console.log("Response from check_superuser:", res);
+        setIsSuperuser(res.data.is_superuser);
+      })
+      .catch((err) => {
+        console.error("Error checking superuser:", err);
+      });
   };
 
   const handleDeleteSemester = async () => {
@@ -41,11 +54,12 @@ const SemesterDetail = ({ semId }) => {
 
       {/* Render subjects */}
       {semester && semester.subjects && (
-        <div>
+          <div>
+        <Link to={`/add-subject/${semester.id}`} className='inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md' >Add Subject</Link>
           <p className="font-bold mt-4">Subjects:</p>
           <ul className="list-disc ml-6">
             {semester.subjects.map(subject => (
-              <li key={subject.id}>{subject.course_code} - {subject.name}</li>
+              <li key={subject.id}><Link to={`subject/${subject.id}`} className='text-indigo-700'>{subject.course_code} - {subject.name}</Link></li>
             ))}
           </ul>
         </div>
@@ -53,5 +67,6 @@ const SemesterDetail = ({ semId }) => {
     </div>
   );
 };
+
 
 export default SemesterDetail;

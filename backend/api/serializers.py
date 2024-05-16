@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,13 +21,17 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "content", "created_at", "author"]
 
         extra_kwargs = {"author": {"read_only": True}}
-
+class CourseOutcomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseOutcome
+        fields = ("id", "title", "description", "uap", "subject")
 
 
 class SubjectSerializer(serializers.ModelSerializer):
+    co = CourseOutcomeSerializer(many=True, read_only=True)
     class Meta:
         model = Subject
-        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark" )
+        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark", "co" )
 
 
 
