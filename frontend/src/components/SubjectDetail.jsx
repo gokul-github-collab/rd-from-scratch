@@ -5,90 +5,126 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import DeleteCourseOutcome from './DeleteCourseOutcome'
 
 export default function SubjectDetail() {
-    const {id} = useParams()
+  const { id } = useParams()
 
-    useEffect(()=>{
-        getSubject(id)
-    }, [id])
+  useEffect(() => {
+    checkSuperuser()
+    getSubject(id)
+  }, [id])
 
-    const [subject, setSubject] = useState(null)
+  const [subject, setSubject] = useState(null)
 
-    const getSubject = (id) => {
-        api.get(`/api/subject/${id}/`). 
-        then((res)=> setSubject(res.data)). 
-        catch(err => toast.error(err))
+  const [isSuperuser, setIsSuperuser] = useState(false)
+
+  const checkSuperuser = () => {
+    api.get(`/api/check_superuser/`).
+      then((res) => setIsSuperuser(res.data.is_superuser)).
+      catch((err) => toast.error(err))
+  }
+
+  const handleDeleteCourseOutcome = () => {
+    console.log(subject.co)
+    if (window.confirm(`Are you sure you want to delete ${subject.co}`)) {
+      try {
+        api.delete(`/api/course-outcome/delete/${subject.co.id}/`)
+        toast.error('Course Outcome deleted successfully')
+        navigate(`/subject/${subject.co.subject}`);
+      } catch (err) {
+        alert(err)
+      }
+
     }
+  }
+  const getSubject = (id) => {
+    api.get(`/api/subject/${id}/`).
+      then((res) => setSubject(res.data)).
+      catch(err => toast.error(err))
+  }
   return (
     <div className='mt-20 p-5'>
       <div className="px-4 sm:px-0">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">{ subject? subject.name: ""}</h3>
+        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""}</h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
       </div>
       <div className="mt-6 border-t border-gray-100">
         <dl className="divide-y divide-gray-100">
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Subject name</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.name: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.name : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Course Code</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.course_code: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.course_code : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Lecture Tutorial Practical Credit</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.ltpc: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.ltpc : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Prerequisite</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.prerequisite: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.prerequisite : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Internal Mark</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.internal_mark: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.internal_mark : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">External Mark</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{ subject? subject.external_mark: ""}</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.external_mark : ""}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Course Outcome</p>
-    <Link to={`add-course-outcome/${subject? subject.id: ""}`}  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
-    </div>
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Course Outcome</p>
+              <Link to={`/add-course-outcome/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
+            </div>
 
-  <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div className="relative overflow-x-auto">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Co
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            U / AP
-                        </th>
-                    </tr>
-         
+
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Co
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Description
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      U / AP
+                    </th>
+                    {isSuperuser &&
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+
+                    }
+                  </tr>
+
                 </thead>
                 <tbody>
-                   
-                {subject && subject.co && subject.co.map((co) => (
-            <tr key={co.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="px-6 py-4">{co.title}</td>
-              <td className="px-6 py-4">{co.description}</td>
-              <td className="px-6 py-4">{co.uap}</td>
-            </tr>
-          ))}
+
+                  {subject && subject.co && subject.co.map((co) => (
+                    <tr key={co.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <td className="px-6 py-4">{co.title}</td>
+                      <td className="px-6 py-4">{co.description}</td>
+                      <td className="px-6 py-4">{co.uap}</td>
+                      <td className="px-6 py-4">
+                        {isSuperuser &&
+                          <Link to={`/edit-course-outcome/${co.id}`} className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Edit</Link>
+                        }
+                        {isSuperuser &&
+                          <DeleteCourseOutcome coId={co.id} />
+                        }</td>
+                    </tr>
+                  ))}
                 </tbody>
-            </table>
-        </div>
-</div>
-   
+              </table>
+            </div>
+          </div>
+
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
