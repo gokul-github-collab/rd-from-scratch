@@ -27,7 +27,7 @@ class NoteSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ("id", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark" )
+        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark" )
 
 
 
@@ -36,7 +36,7 @@ class SemesterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  Semester
-        fields = ("id", "title", "course", "subjects")
+        fields = ("id", "title", "course", 'syllabus', "subjects")
 
 
 class SyllabusSerializer(serializers.ModelSerializer):
@@ -45,6 +45,14 @@ class SyllabusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Syllabus
         fields = ("id", "year", "course", "sem")
+
+class SemesterSylSerializer(serializers.ModelSerializer):
+    subjects = SubjectSerializer(many=True, read_only=True)
+    sem  = SyllabusSerializer(many=True, read_only=True)
+
+    class Meta:
+        model =  Semester
+        fields = ("id", "title",  "course", "subjects", 'sem')
 
 class PoSerializer(serializers.ModelSerializer):
     class Meta:

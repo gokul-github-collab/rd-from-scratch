@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, SemesterSylSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
 from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus
@@ -106,3 +106,48 @@ class SyllabusDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SyllabusSerializer
     permission_classes = [AllowAny]
     
+
+class SemesterListView(generics.ListCreateAPIView):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
+    permission_classes = [AllowAny]
+
+
+
+
+class SemesterDelete(generics.DestroyAPIView):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
+    permission_classes = [IsAuthenticated]
+
+
+
+class SemesterDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
+    permission_classes = [AllowAny]
+
+class SubjectListView(generics.ListCreateAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [AllowAny]
+
+
+class SubjectDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [AllowAny]
+
+
+
+class SubjectsBySemesterView(generics.ListCreateAPIView):
+    serializer_class = SubjectSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        semester_id = self.kwargs.get('semester_id')
+        # Retrieve the semester instance
+        semester = Semester.objects.get(id=semester_id)
+        # Retrieve subjects related to the semester
+        subjects = Subject.objects.filter(semester=semester)
+        return subjects

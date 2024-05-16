@@ -30,7 +30,6 @@ class Syllabus(models.Model):
         return self.year
     
 
-
 class Semester(models.Model):
     title = models.CharField(max_length=100, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='semesters')
@@ -51,7 +50,7 @@ class Subject(models.Model):
     internal_mark = models.IntegerField()
 
     def __str__(self) -> str:
-        return self.name
+        return self.name + " - " + self.semester.title + " - " + self.semester.syllabus.year
 
 class Po(models.Model):
     title = models.CharField(max_length=100)

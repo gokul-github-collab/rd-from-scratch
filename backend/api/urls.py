@@ -24,4 +24,15 @@ urlpatterns = [
     path("syllabus/", views.SyllabusListView.as_view(), name='syllabus-list'),
     path("syllabus/<int:pk>/", views.SyllabusDetailView.as_view(), name='syllabus-detail'), 
 
+
+    path("semester/", views.SemesterListView.as_view(), name='semester-list'),
+    path("semester/<int:pk>/", views.SemesterDetailView.as_view(), name='semester-detail'), 
+    path("semester/delete/<int:pk>/", views.SemesterDelete.as_view(), name='semester-delete'), 
+
+
+
+     path('semester/<int:semester_id>/subjects/', views.SubjectsBySemesterView.as_view(), name='subjects-by-semester'),
+
+    path("subject/", views.SubjectListView.as_view(), name='subject-list'),
+    path("subject/<int:pk>/", views.SubjectDetailView.as_view(), name='subject-detail'), 
 ]
