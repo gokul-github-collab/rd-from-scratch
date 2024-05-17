@@ -61,6 +61,17 @@ class CourseOutcome(models.Model):
     def __str__(self) -> str:
         return self.title 
     
+class CourseContent(models.Model):
+    module = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    hrs_pw = models.IntegerField()
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="cc")
+
+
+    def __str__(self) -> str:
+        return self.title + " - " + self.subject.name
+    
 
 
 class Po(models.Model):

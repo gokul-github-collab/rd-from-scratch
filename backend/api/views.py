@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseOutcomeSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseContentSerializer, CourseOutcomeSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -166,4 +166,21 @@ class CourseOutcomeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CourseOutcomeDeleteView(generics.DestroyAPIView):
     queryset = CourseOutcome.objects.all()
     serializer_class = CourseOutcomeSerializer
+    permission_classes = [AllowAny]
+
+
+class CourseContentListView(generics.ListCreateAPIView):
+    queryset = CourseContent.objects.all()
+    serializer_class = CourseContentSerializer
+    permission_classes = [AllowAny]
+
+class CourseContentDetailView(generics.RetrieveUpdateAPIView):
+    queryset = CourseContent.objects.all()
+    serializer_class = CourseContentSerializer
+    permission_classes = [AllowAny]
+
+
+class CourseContentDeleteView(generics.DestroyAPIView):
+    queryset = CourseContent.objects.all()
+    serializer_class = CourseContentSerializer
     permission_classes = [AllowAny]

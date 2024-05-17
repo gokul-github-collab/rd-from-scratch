@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import DeleteCourseOutcome from './DeleteCourseOutcome'
+import DeleteCourseContent from './DeleteCourseContent'
 
 export default function SubjectDetail() {
   const { id } = useParams()
@@ -15,7 +16,11 @@ export default function SubjectDetail() {
     getSubject(id)
   }, [id])
 
+
+  
+  
   const [subject, setSubject] = useState(null)
+  
 
   const [isSuperuser, setIsSuperuser] = useState(false)
 
@@ -124,6 +129,73 @@ export default function SubjectDetail() {
               </table>
             </div>
           </div>
+
+          {/* Course Content*/}
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+  <div className="text-sm font-medium leading-6 text-gray-900">
+    <p>Course Content</p>
+    <Link
+      to={`/add-course-content/${subject ? subject.id : ""}`}
+      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+    >
+      Add Course Content
+    </Link>
+  </div>
+
+  <div className="relative overflow-x-auto sm:col-span-2">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            Module
+          </th>
+          <th scope="col" className="">
+            Title
+          </th>
+          <th scope="col" className="w-1/2">
+            Description
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Hours Per Week
+          </th>
+          {isSuperuser && (
+            <th scope="col" className="px-6 py-3">
+              Edit or Delete
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {subject?.cc?.map((cc) => (
+          <tr
+            key={cc.id}
+            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          >
+            <td className="px-6 py-4">{cc.module}</td>
+            <td className="py-4">{cc.title}</td>
+            <td className="w-1/2">{cc.description}
+          
+            </td>
+            <td className="px-6 py-4">{cc.hrs_pw}</td>
+            {isSuperuser && (
+              <td className="px-6 py-4">
+                <Link
+                  to={`/edit-course-content/${cc.id}`}
+                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                >
+                  Edit
+                </Link>
+                <DeleteCourseContent ccId={cc.id} />
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
