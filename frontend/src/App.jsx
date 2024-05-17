@@ -28,6 +28,10 @@ import AddTextBookReference from './components/AddTextBookReference'
 import EditTextBookReference from './components/EditTextBookReference'
 import AddReferenceBook from './components/AddReferenceBook'
 import EditReferenceBook from './components/EditReferenceBook'
+import AddWebReference from './components/AddWebReference'
+import EditWebReference from './components/EditWebReference'
+import AddOnlineReference from './components/AddOnlineReference'
+import EditOnlineReference from './components/EditOnlineReference'
 
 const Logout = () => {
   localStorage.clear()
@@ -93,6 +97,14 @@ function App() {
 
           <Route path='add-reference-book/:id' element={<ProtectedRoute> <AddReferenceBook /> </ProtectedRoute>} />
           <Route path='edit-reference-book/:id' element={<ProtectedRoute> <EditReferenceBook /> </ProtectedRoute>} />
+
+
+          <Route path='add-web-reference/:id' element={<ProtectedRoute> <AddWebReference /> </ProtectedRoute>} />
+          <Route path='edit-web-reference/:id' element={<ProtectedRoute> <EditWebReference /> </ProtectedRoute>} />
+
+
+          <Route path='add-online-reference/:id' element={<ProtectedRoute> <AddOnlineReference /> </ProtectedRoute>} />
+          <Route path='edit-online-reference/:id' element={<ProtectedRoute> <EditOnlineReference /> </ProtectedRoute>} />
           </Route>
 
           <Route path='/login' element={<Login />} />

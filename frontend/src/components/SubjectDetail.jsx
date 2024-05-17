@@ -9,6 +9,8 @@ import DeleteCourseOutcome from './DeleteCourseOutcome'
 import DeleteCourseContent from './DeleteCourseContent'
 import DeleteTextBookReference from './DeleteTextBookReference'
 import DeleteReferenceBook from './DeleteReferenceBook'
+import DeleteWebReference from './DeleteWebReference'
+import DeleteOnlineReference from './DeleteOnlineReference'
 
 export default function SubjectDetail() {
   const { id } = useParams()
@@ -324,8 +326,135 @@ export default function SubjectDetail() {
   
 </div>
   
+
+{/* Web References  */}
+<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+  <div className="text-sm font-medium leading-6 text-gray-900">
+    <p>Web Reference</p>
+
+    <Link
+      to={`/add-web-reference/${subject ? subject.id : ""}`}
+      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+    >
+      Add Web Reference
+    </Link>
+
+  </div>
+
+  <div className="relative overflow-x-auto sm:col-span-2">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            S. no
+          </th>
+          <th scope="col" className="">
+            URL
+          </th>
+
+          {isSuperuser && (
+            <th scope="col" className="px-6 py-3">
+              Edit or Delete
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {subject?.wr?.map((wr) => (
+          <tr
+            key={wr.id}
+            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          >
+            <td className="px-6 py-4">{wr.sno}</td>
+            <td className="py-4">{wr.url}</td>
+
+            {isSuperuser && (
+              <td className="px-6 py-4">
+                <Link
+                  to={`/edit-web-reference/${wr.id}`}
+                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                >
+                  Edit
+                </Link>
+                <DeleteWebReference wrId={wr.id} />
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+
+
   
+</div>
+
+
+{/* Online References  */}
+<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+  <div className="text-sm font-medium leading-6 text-gray-900">
+    <p>Online Reference</p>
+
+    <Link
+      to={`/add-online-reference/${subject ? subject.id : ""}`}
+      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+    >
+      Add Online Reference
+    </Link>
+
+  </div>
+
+  <div className="relative overflow-x-auto sm:col-span-2">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            S. no
+          </th>
+          <th scope="col" className="">
+            URL
+          </th>
+
+          {isSuperuser && (
+            <th scope="col" className="px-6 py-3">
+              Edit or Delete
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {subject?.oref?.map((oref) => (
+          <tr
+            key={oref.id}
+            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          >
+            <td className="px-6 py-4">{oref.sno}</td>
+            <td className="py-4">{oref.url}</td>
+
+            {isSuperuser && (
+              <td className="px-6 py-4">
+                <Link
+                  to={`/edit-online-reference/${oref.id}`}
+                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                >
+                  Edit
+                </Link>
+                <DeleteOnlineReference orefId={oref.id} />
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+
+
   
+</div>
+
+{/* 
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -368,7 +497,7 @@ export default function SubjectDetail() {
                 </li>
               </ul>
             </dd>
-          </div>
+          </div> */}
         </dl>
       </div>
     </div>
