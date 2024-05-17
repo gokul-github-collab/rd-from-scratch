@@ -107,6 +107,10 @@ class SyllabusDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SyllabusSerializer
     permission_classes = [AllowAny]
     
+class SyllabusDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Syllabus.objects.all()
+    serializer_class = SyllabusSerializer
+    permission_classes = [AllowAny]
 
 class SemesterListView(generics.ListCreateAPIView):
     queryset = Semester.objects.all()
@@ -139,6 +143,11 @@ class SubjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SubjectSerializer
     permission_classes = [AllowAny]
 
+
+class SubjectDelete(generics.DestroyAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [AllowAny]
 
 
 class SubjectsBySemesterView(generics.ListCreateAPIView):

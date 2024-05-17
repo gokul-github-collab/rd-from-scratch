@@ -9,6 +9,7 @@ import { SlArrowDown } from "react-icons/sl";
 import DeletePo from './DeletePo'
 import DeletePso from './DeletePso'
 import { FaAsterisk } from "react-icons/fa6"
+import DeleteSyllabus from './DeleteSyllabus'
 
 const FAQItem1 = ({ question, pos }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,10 +64,10 @@ const FAQItem1 = ({ question, pos }) => {
 };
 
 
-const FAQItem2 = ({ question, pos }) => {
+const FAQItem2 = ({ question, psos }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuperuser, setIsSuperuser] = useState(false)
- const [po, setPo] = useState(null)
+ const [pso, setPso] = useState(null)
   useEffect(()=>{
     checkSuperuser()
 
@@ -98,9 +99,9 @@ const FAQItem2 = ({ question, pos }) => {
       {isOpen && (
         <div className="mt-2">
 
-          {pos && (
+          {psos && (
             <div>
-              {pos.map((item) => (
+              {psos.map((item) => (
                 <div key={item.id} className="mb-2">
                   <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
                   <p className="text-gray-600">{item.description}</p>
@@ -228,7 +229,7 @@ const CourseDetail = () => {
       <FAQItem2
         question="Program Specific Outcome (PSO's)"
         answers={[{ title: "Description", description: course.description }]} 
-        pos={course.psos} 
+        psos={course.psos} 
       />
     </div>
 
@@ -240,14 +241,19 @@ const CourseDetail = () => {
   >
     Add Syllabus
   </Link>}
-        {course.syllabus && course.syllabus.map((syllabus) => (
-    <Link to={`/syllabus/${syllabus.id}`} className='block text-indigo-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> {syllabus.year}</Link>
+
+        {course.syllabus && course.syllabus.map((syllabus) => (<>
+        
+          <Link to={`/syllabus/${syllabus.id}`} className='block text-indigo-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> {syllabus.year}</Link>
+          <Link to={`/edit-syllabus/${syllabus.id}`} className='block text-putple-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> Edit</Link>
+          <DeleteSyllabus sylId={syllabus.id} />
+        </>
 ))}
 
       </div>
 
 
-
+ 
     </main>
 
 

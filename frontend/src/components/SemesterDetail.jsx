@@ -59,7 +59,7 @@ const SemesterDetail = ({ semId }) => {
           <p className="font-bold mt-4">Subjects:</p>
           <ul className="list-disc ml-6">
             {semester.subjects.map(subject => (
-              <li key={subject.id}><Link to={`subject/${subject.id}`} className='text-indigo-700'>{subject.course_code} - {subject.name}</Link></li>
+              <li key={subject.id}><Link to={`/subject/${subject.id}`} className='text-indigo-700'>{subject.course_code} - {subject.name}</Link></li>
             ))}
           </ul>
         </div>

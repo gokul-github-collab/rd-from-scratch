@@ -11,6 +11,7 @@ import DeleteTextBookReference from './DeleteTextBookReference'
 import DeleteReferenceBook from './DeleteReferenceBook'
 import DeleteWebReference from './DeleteWebReference'
 import DeleteOnlineReference from './DeleteOnlineReference'
+import DeleteSubject from './DeleteSubject'
 
 export default function SubjectDetail() {
   const { id } = useParams()
@@ -20,6 +21,7 @@ export default function SubjectDetail() {
     getSubject(id)
   }, [id])
 
+  const navigate = useNavigate()
 
   
   
@@ -34,19 +36,20 @@ export default function SubjectDetail() {
       catch((err) => toast.error(err))
   }
 
-  const handleDeleteCourseOutcome = () => {
-    console.log(subject.co)
-    if (window.confirm(`Are you sure you want to delete ${subject.co}`)) {
+  const handleDeleteSubject = () => {
+    console.log(subject? subject.id: "")
+    if (window.confirm(`Are you sure you want to delete ${subject? subject.name: ""}`)) {
       try {
-        api.delete(`/api/course-outcome/delete/${subject.co.id}/`)
-        toast.error('Course Outcome deleted successfully')
-        navigate(`/subject/${subject.co.subject}`);
+        api.delete(`/api/subject/delete/${subject? subject.id: ""}/`)
+        toast.error('Subject deleted successfully')
+        navigate(`/courses`);
       } catch (err) {
         alert(err)
       }
 
     }
   }
+
   const getSubject = (id) => {
     api.get(`/api/subject/${id}/`).
       then((res) => setSubject(res.data)).
@@ -55,7 +58,7 @@ export default function SubjectDetail() {
   return (
     <div className='mt-20 p-5'>
       <div className="px-4 sm:px-0">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""}</h3>
+        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""} <Link to={`/edit-subject/${subject? subject.id: ""}`} className='inline-block bg-gradient-to-tr mt-2 from-purple-500 to-purple-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-purple-600 hover:to-purple-800 shadow-md'>Edit</Link> {/* <DeleteSubject subId={subject? subject.id: "" */} <button className='inline-block bg-gradient-to-tr mt-2 from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md'onClick={handleDeleteSubject}>Delete</button>  </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
       </div>
       <div className="mt-6 border-t border-gray-100">
