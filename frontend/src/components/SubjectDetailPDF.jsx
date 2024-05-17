@@ -72,6 +72,7 @@ const SubjectDetailPDF = ({ sid }) => {
 
                                     <Text style={styles.text}>Description: {co.description}</Text>
                                     <Text style={styles.text}>U/ AP: {co.uap}</Text>
+                                
                                 </>
                             ))}
 
