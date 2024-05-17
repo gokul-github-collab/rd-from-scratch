@@ -24,6 +24,10 @@ import AddCourseOutcome from './components/AddCourseOutcome'
 import EditCourseOutcome from './components/EditCourseOutcome'
 import AddCourseContent from './components/AddCourseContent'
 import EditCourseContent from './components/EditCourseContent'
+import AddTextBookReference from './components/AddTextBookReference'
+import EditTextBookReference from './components/EditTextBookReference'
+import AddReferenceBook from './components/AddReferenceBook'
+import EditReferenceBook from './components/EditReferenceBook'
 
 const Logout = () => {
   localStorage.clear()
@@ -80,6 +84,15 @@ function App() {
 
           <Route path='add-course-content/:id' element={<ProtectedRoute> <AddCourseContent /> </ProtectedRoute>} />
           <Route path='edit-course-content/:id' element={<ProtectedRoute> <EditCourseContent /> </ProtectedRoute>} />
+
+
+          <Route path='add-text-book/:id' element={<ProtectedRoute> <AddTextBookReference /> </ProtectedRoute>} />
+          <Route path='edit-text-book/:id' element={<ProtectedRoute> <EditTextBookReference /> </ProtectedRoute>} />
+
+
+
+          <Route path='add-reference-book/:id' element={<ProtectedRoute> <AddReferenceBook /> </ProtectedRoute>} />
+          <Route path='edit-reference-book/:id' element={<ProtectedRoute> <EditReferenceBook /> </ProtectedRoute>} />
           </Route>
 
           <Route path='/login' element={<Login />} />

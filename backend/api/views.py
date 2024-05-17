@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer, SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseContentSerializer, CourseOutcomeSerializer
+from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer,SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseContentSerializer, CourseOutcomeSerializer
+from .serializers import TextBookSerializer, ReferenceBookSerializer, WebReferenceSerializer, OnlineReferenceSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -183,4 +184,74 @@ class CourseContentDetailView(generics.RetrieveUpdateAPIView):
 class CourseContentDeleteView(generics.DestroyAPIView):
     queryset = CourseContent.objects.all()
     serializer_class = CourseContentSerializer
+    permission_classes = [AllowAny]
+
+
+
+class TextBookListView(generics.ListCreateAPIView):
+    queryset = TextBook.objects.all()
+    serializer_class = TextBookSerializer
+    permission_classes = [AllowAny]
+
+class TextBookDetailView(generics.RetrieveUpdateAPIView):
+    queryset = TextBook.objects.all()
+    serializer_class = TextBookSerializer
+    permission_classes = [AllowAny]
+
+
+class TextBookDeleteView(generics.DestroyAPIView):
+    queryset = TextBook.objects.all()
+    serializer_class = TextBookSerializer
+    permission_classes = [AllowAny]
+
+
+class ReferenceBookListView(generics.ListCreateAPIView):
+    queryset = ReferenceBook.objects.all()
+    serializer_class = ReferenceBookSerializer
+    permission_classes = [AllowAny]
+
+class ReferenceBookDetailView(generics.RetrieveUpdateAPIView):
+    queryset = ReferenceBook.objects.all()
+    serializer_class = ReferenceBookSerializer
+    permission_classes = [AllowAny]
+
+
+class ReferenceBookDeleteView(generics.DestroyAPIView):
+    queryset = ReferenceBook.objects.all()
+    serializer_class = ReferenceBookSerializer
+    permission_classes = [AllowAny]
+
+
+class WebReferenceListView(generics.ListCreateAPIView):
+    queryset = WebReference.objects.all()
+    serializer_class = WebReferenceSerializer
+    permission_classes = [AllowAny]
+
+class WebReferenceDetailView(generics.RetrieveUpdateAPIView):
+    queryset = WebReference.objects.all()
+    serializer_class = WebReferenceSerializer
+    permission_classes = [AllowAny]
+
+
+class WebReferenceDeleteView(generics.DestroyAPIView):
+    queryset = WebReference.objects.all()
+    serializer_class = WebReferenceSerializer
+
+    permission_classes = [AllowAny]
+
+
+class OnlineReferenceListView(generics.ListCreateAPIView):
+    queryset = OnlineReference.objects.all()
+    serializer_class = OnlineReferenceSerializer
+    permission_classes = [AllowAny]
+
+class OnlineReferenceDetailView(generics.RetrieveUpdateAPIView):
+    queryset = OnlineReference.objects.all()
+    serializer_class = OnlineReferenceSerializer
+    permission_classes = [AllowAny]
+
+
+class OnlineReferenceDeleteView(generics.DestroyAPIView):
+    queryset = OnlineReference.objects.all()
+    serializer_class = OnlineReferenceSerializer
     permission_classes = [AllowAny]

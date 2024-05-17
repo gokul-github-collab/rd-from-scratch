@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,15 +31,37 @@ class CourseContentSerializer(serializers.ModelSerializer):
         model = CourseContent
         fields = ("id", "module", "title", "description", "hrs_pw", "subject")
 
+class TextBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TextBook
+        fields = ("id", "sno", "name", "subject")
 
+class ReferenceBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReferenceBook
+        fields = ("id", "sno", "name", "subject")
+
+class WebReferenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WebReference
+        fields = ("id", "sno", "url", "subject")
+
+class OnlineReferenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnlineReference
+        fields = ("id", "sno", "url", "subject")
 
 class SubjectSerializer(serializers.ModelSerializer):
     co = CourseOutcomeSerializer(many=True, read_only=True)
     cc = CourseContentSerializer(many=True, read_only=True)
+    tb = TextBookSerializer(many=True, read_only=True)
+    rb = ReferenceBookSerializer(many=True, read_only=True)
+    wr = WebReferenceSerializer(many=True, read_only=True)
+    oref = OnlineReferenceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Subject
-        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark", "co", "cc" )
+        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark", "co", "cc", 'tb', 'rb', 'wr', 'oref' )
 
 
 

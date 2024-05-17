@@ -72,7 +72,37 @@ class CourseContent(models.Model):
     def __str__(self) -> str:
         return self.title + " - " + self.subject.name
     
+class TextBook(models.Model):
+    sno = models.CharField(max_length=100)
+    name = models.CharField(max_length=300)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="tb")
 
+    def __str__(self) -> str:
+        return self.name + " - " + self.subject.name
+    
+class ReferenceBook(models.Model):
+    sno = models.CharField(max_length=100)
+    name = models.CharField(max_length=300)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="rb")
+    
+    def __str__(self) -> str:
+        return self.name + " - " + self.subject.name
+    
+class WebReference(models.Model):
+    sno = models.CharField(max_length=100)
+    url = models.URLField(max_length=300)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="wr")
+    
+    def __str__(self) -> str:
+        return self.url + " - " + self.subject.name
+    
+class OnlineReference(models.Model):
+    sno = models.CharField(max_length=100)
+    url = models.URLField(max_length=300)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="oref")
+    
+    def __str__(self) -> str:
+        return self.url + " - " + self.subject.name
 
 class Po(models.Model):
     title = models.CharField(max_length=100)

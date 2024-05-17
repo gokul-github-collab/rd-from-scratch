@@ -46,4 +46,21 @@ urlpatterns = [
     path("course-content/<int:pk>/", views.CourseContentDetailView.as_view(), name='course-content-detail'),
     path("course-content/delete/<int:pk>/", views.CourseContentDeleteView.as_view(), name='course-content-delete'),
 
+    path("text-book/", views.TextBookListView.as_view(), name='text-book-list'),
+    path("text-book/<int:pk>/", views.TextBookDetailView.as_view(), name='text-book-detail'),
+    path("text-book/delete/<int:pk>/", views.TextBookDeleteView.as_view(), name='text-book-delete'),
+
+    path("reference-book/", views.ReferenceBookListView.as_view(), name='reference-book-list'),
+    path("reference-book/<int:pk>/", views.ReferenceBookDetailView.as_view(), name='reference-book-detail'),
+    path("reference-book/delete/<int:pk>/", views.ReferenceBookDeleteView.as_view(), name='reference-book-delete'),
+
+
+    path("web-reference/", views.WebReferenceListView.as_view(), name='web-reference-list'),
+    path("web-reference/<int:pk>/", views.WebReferenceDetailView.as_view(), name='web-reference-detail'),
+    path("web-reference/delete/<int:pk>/", views.WebReferenceDeleteView.as_view(), name='web-reference-delete'),
+
+    path("online-reference/", views.OnlineReferenceListView.as_view(), name='online-reference-list'),
+    path("online-reference/<int:pk>/", views.OnlineReferenceDetailView.as_view(), name='online-reference-detail'),
+    path("online-reference/delete/<int:pk>/", views.OnlineReferenceDeleteView.as_view(), name='online-reference-delete'),
+
 ]
