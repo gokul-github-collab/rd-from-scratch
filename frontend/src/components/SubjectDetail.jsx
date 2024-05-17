@@ -1,4 +1,3 @@
-import { PaperClipIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState } from 'react'
 import api from '../api'
 import { useParams } from 'react-router-dom'
@@ -11,7 +10,8 @@ import DeleteTextBookReference from './DeleteTextBookReference'
 import DeleteReferenceBook from './DeleteReferenceBook'
 import DeleteWebReference from './DeleteWebReference'
 import DeleteOnlineReference from './DeleteOnlineReference'
-import DeleteSubject from './DeleteSubject'
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import SubjectDetailPDF from './SubjectDetailPDF';
 
 export default function SubjectDetail() {
   const { id } = useParams()
@@ -58,7 +58,7 @@ export default function SubjectDetail() {
   return (
     <div className='mt-20 p-5'>
       <div className="px-4 sm:px-0">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""} <Link to={`/edit-subject/${subject? subject.id: ""}`} className='inline-block bg-gradient-to-tr mt-2 from-purple-500 to-purple-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-purple-600 hover:to-purple-800 shadow-md'>Edit</Link> {/* <DeleteSubject subId={subject? subject.id: "" */} <button className='inline-block bg-gradient-to-tr mt-2 from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md'onClick={handleDeleteSubject}>Delete</button>  </h3>
+        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""} <Link to={`/edit-subject/${subject? subject.id: ""}`} className='inline-block bg-gradient-to-tr mt-2 from-purple-500 to-purple-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-purple-600 hover:to-purple-800 shadow-md'>Edit</Link> <button className='inline-block bg-gradient-to-tr mt-2 from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md'onClick={handleDeleteSubject}>Delete</button>  </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
       </div>
       <div className="mt-6 border-t border-gray-100">
@@ -156,10 +156,10 @@ export default function SubjectDetail() {
           <th scope="col" className="px-6 py-3">
             Module
           </th>
-          <th scope="col" className="">
+          <th scope="col" className="px-6 py-3">
             Title
           </th>
-          <th scope="col" className="w-1/2">
+          <th scope="col" className="px-6 py-3">
             Description
           </th>
           <th scope="col" className="px-6 py-3">
@@ -180,7 +180,7 @@ export default function SubjectDetail() {
           >
             <td className="px-6 py-4">{cc.module}</td>
             <td className="py-4">{cc.title}</td>
-            <td className="w-1/2">{cc.description}
+            <td className="w-1/2 py-4">{cc.description}
           
             </td>
             <td className="px-6 py-4">{cc.hrs_pw}</td>
@@ -456,6 +456,27 @@ export default function SubjectDetail() {
 
   
 </div>
+
+{console.log(`Subject ID: ${subject? subject.id: ""}`)}
+<aside>
+<div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h1>Subject Details</h1>
+        <PDFDownloadLink
+            document={<SubjectDetailPDF sid={subject? subject.id: ""} />}
+            fileName="subject-details.pdf"
+            style={{
+                textDecoration: 'none',
+                padding: '10px 20px',
+                color: '#fff',
+                backgroundColor: '#007BFF',
+                border: 'none',
+                borderRadius: '4px',
+            }}
+        >
+            {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+        </PDFDownloadLink>
+    </div>
+</aside>
 
 {/* 
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
