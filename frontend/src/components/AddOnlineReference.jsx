@@ -89,7 +89,7 @@ const AddOnlineReference = () => {
         />
       </div>
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Web Reference</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Online Reference</h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
         </p>

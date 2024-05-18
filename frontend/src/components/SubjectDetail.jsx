@@ -13,6 +13,25 @@ import DeleteOnlineReference from './DeleteOnlineReference'
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import SubjectDetailPDF from './SubjectDetailPDF';
 
+
+import { Fragment } from 'react'
+import {
+  BriefcaseIcon,
+  CalendarIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  CurrencyDollarIcon,
+  LinkIcon,
+  MapPinIcon,
+  PencilIcon,
+} from '@heroicons/react/20/solid'
+import { HiMiniPlusCircle } from "react-icons/hi2";
+import { Menu, Transition } from '@headlessui/react'
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function SubjectDetail() {
   const { id } = useParams()
 
@@ -56,49 +75,137 @@ export default function SubjectDetail() {
       catch(err => toast.error(err))
   }
   return (
-    <div className='mt-20 p-5'>
-      <div className="px-4 sm:px-0">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">{subject ? subject.name : ""} <Link to={`/edit-subject/${subject? subject.id: ""}`} className='inline-block bg-gradient-to-tr mt-2 from-purple-500 to-purple-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-purple-600 hover:to-purple-800 shadow-md'>Edit</Link> <button className='inline-block bg-gradient-to-tr mt-2 from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md'onClick={handleDeleteSubject}>Delete</button>  </h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
-      </div>
+    <div className='mt-24 lg:px-64 '>
+      
       <div className="mt-6 border-t border-gray-100">
         <dl className="divide-y divide-gray-100">
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Subject name</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.name : ""}</dd>
+          
+          {/* */}
+
+    <div className="lg:flex lg:items-center lg:justify-between py-5">
+      <div className="min-w-0 flex-1 px-4">
+        <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+          {subject? subject.name: ""}
+        </h2>
+        <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+            Course Code: {subject? subject.course_code: ""}
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Course Code</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.course_code : ""}</dd>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+            Lecture Tutorial Practical Course: {subject? subject.ltpc: ""}
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Lecture Tutorial Practical Credit</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.ltpc : ""}</dd>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+            Prerequisite: {subject? subject.prerequisite: ""}
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Prerequisite</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.prerequisite : ""}</dd>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+            External Mark: {subject? subject.external_mark: ""}
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Internal Mark</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.internal_mark : ""}</dd>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+            Internal Mark: {subject? subject.internal_mark: ""}
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">External Mark</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{subject ? subject.external_mark : ""}</dd>
-          </div>
+        </div>
+      </div>
+      {isSuperuser && 
+      
+      <div className="mt-5 flex lg:ml-4 lg:mt-0">
+        <span className="hidden sm:block">
+          <Link 
+            to={`/edit-subject/${subject? subject.id: ""}`}
+            className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          >
+            <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+            Edit
+          </Link>
+        </span>
+
+        
+
+        <span className="sm:ml-3">
+          <button
+            type="button" onClick={handleDeleteSubject}
+            className=" inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+          >
+            <CheckIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+            Delete
+          </button>
+        </span>
+
+        {/* Dropdown */}
+        <Menu as="div" className="relative ml-3 sm:hidden">
+          <Menu.Button className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
+            More
+            <ChevronDownIcon className="-mr-1 ml-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+          </Menu.Button>
+
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={`/edit-subject/${subject? subject.id: ""}`}
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                  >
+                    Edit
+                  </Link>
+                )}
+              </Menu.Item>
+              {/* <Menu.Item>
+                {({ active }) => (
+                  <a
+                    href="#"
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                  >
+                    View
+                  </a>
+                )}
+              </Menu.Item> */}
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      </div>
+      }
+    </div>
+
+
+
+
+
+
+
+
+
+
+          
+
+          {/* Course Outcome */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <div className="text-sm font-medium leading-6 text-gray-900">
               <p>Course Outcome</p>
+              {isSuperuser && 
+              
               <Link to={`/add-course-outcome/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
+              }
             </div>
 
-            <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <div className="relative overflow-x-auto col-span-3 rounded-lg">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 text-gray-400 bg-gray-800 ">
+                <thead className="text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
 
-                  <tr>
-                    <th scope="col" className="px-6 py-3">
+                  <tr className='text-white-700 bg-gray-50 bg-gray-700 text-gray-400'>
+                    <th scope="col" className="px-6 py-3 text-white-700 bg-gray-50 bg-gray-700 text-gray-400">
                       Co
                     </th>
                     <th scope="col" className="px-6 py-3">
@@ -119,13 +226,13 @@ export default function SubjectDetail() {
                 <tbody>
 
                   {subject && subject.co && subject.co.map((co) => (
-                    <tr key={co.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <td className="px-6 py-4">{co.title}</td>
-                      <td className="px-6 py-4">{co.description}</td>
-                      <td className="px-6 py-4">{co.uap}</td>
-                      <td className="px-6 py-4">
+                    <tr key={co.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
+                      <td className="px-6 py-4  text-white">{co.title}</td>
+                      <td className="px-6 py-4  text-white">{co.description}</td>
+                      <td className="px-6 py-4  text-white">{co.uap}</td>
+                      <td className="px-6 py-4  text-white">
                         {isSuperuser &&
-                          <Link to={`/edit-course-outcome/${co.id}`} className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Edit</Link>
+                          <Link to={`/edit-course-outcome/${co.id}`} className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Edit</Link>
                         }
                         {isSuperuser &&
                           <DeleteCourseOutcome coId={co.id} />
@@ -137,21 +244,28 @@ export default function SubjectDetail() {
             </div>
           </div>
 
+
+
+
+
           {/* Course Content*/}
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Course Content</p>
+    {isSuperuser && 
+              
     <Link
       to={`/add-course-content/${subject ? subject.id : ""}`}
       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
     >
       Add Course Content
     </Link>
+            }
   </div>
 
-  <div className="relative overflow-x-auto sm:col-span-2">
+  <div className="relative overflow-x-auto sm:col-span-3">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
         <tr>
           <th scope="col" className="px-6 py-3">
             Module
@@ -176,7 +290,7 @@ export default function SubjectDetail() {
         {subject?.cc?.map((cc) => (
           <tr
             key={cc.id}
-            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            className=" border-b bg-gray-800 text-white border-gray-700"
           >
             <td className="px-6 py-4">{cc.module}</td>
             <td className="py-4">{cc.title}</td>
@@ -188,7 +302,7 @@ export default function SubjectDetail() {
               <td className="px-6 py-4">
                 <Link
                   to={`/edit-course-content/${cc.id}`}
-                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Edit
                 </Link>
@@ -202,23 +316,31 @@ export default function SubjectDetail() {
   </div>
 </div>
 
+
+
+
+
+
+
           {/* Text Book Reference */}
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Text Book Reference</p>
-
+    {isSuperuser && 
+              
     <Link
       to={`/add-text-book/${subject ? subject.id : ""}`}
       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
     >
       Add  Text Book Reference
     </Link>
+            }
 
   </div>
 
-  <div className="relative overflow-x-auto sm:col-span-2">
+  <div className="relative overflow-x-auto sm:col-span-3">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
         <tr>
           <th scope="col" className="px-6 py-3">
             S. no
@@ -238,7 +360,7 @@ export default function SubjectDetail() {
         {subject?.tb?.map((tb) => (
           <tr
             key={tb.id}
-            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            className=" border-b bg-gray-800 text-white border-gray-700"
           >
             <td className="px-6 py-4">{tb.sno}</td>
             <td className="py-4">{tb.name}</td>
@@ -247,7 +369,7 @@ export default function SubjectDetail() {
               <td className="px-6 py-4">
                 <Link
                   to={`/edit-text-book/${tb.id}`}
-                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Edit
                 </Link>
@@ -270,19 +392,21 @@ export default function SubjectDetail() {
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Reference Book</p>
-
+    {isSuperuser && 
+              
     <Link
       to={`/add-reference-book/${subject ? subject.id : ""}`}
       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
     >
       Add Reference Book
     </Link>
+            }
 
   </div>
 
-  <div className="relative overflow-x-auto sm:col-span-2">
+  <div className="relative overflow-x-auto sm:col-span-3">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
         <tr>
           <th scope="col" className="px-6 py-3">
             S. no
@@ -300,9 +424,10 @@ export default function SubjectDetail() {
       </thead>
       <tbody>
         {subject?.rb?.map((rb) => (
+          
           <tr
             key={rb.id}
-            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            className=" border-b bg-gray-800 text-white border-gray-700"
           >
             <td className="px-6 py-4">{rb.sno}</td>
             <td className="py-4">{rb.name}</td>
@@ -311,7 +436,7 @@ export default function SubjectDetail() {
               <td className="px-6 py-4">
                 <Link
                   to={`/edit-reference-book/${rb.id}`}
-                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Edit
                 </Link>
@@ -334,19 +459,21 @@ export default function SubjectDetail() {
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Web Reference</p>
-
+    {isSuperuser && 
+              
     <Link
       to={`/add-web-reference/${subject ? subject.id : ""}`}
       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
     >
       Add Web Reference
     </Link>
+            }
 
   </div>
 
-  <div className="relative overflow-x-auto sm:col-span-2">
+  <div className="relative overflow-x-auto sm:col-span-3">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
         <tr>
           <th scope="col" className="px-6 py-3">
             S. no
@@ -366,7 +493,7 @@ export default function SubjectDetail() {
         {subject?.wr?.map((wr) => (
           <tr
             key={wr.id}
-            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            className=" border-b bg-gray-800 text-white border-gray-700"
           >
             <td className="px-6 py-4">{wr.sno}</td>
             <td className="py-4">{wr.url}</td>
@@ -375,7 +502,7 @@ export default function SubjectDetail() {
               <td className="px-6 py-4">
                 <Link
                   to={`/edit-web-reference/${wr.id}`}
-                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Edit
                 </Link>
@@ -398,19 +525,21 @@ export default function SubjectDetail() {
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Online Reference</p>
-
+    {isSuperuser && 
+              
     <Link
       to={`/add-online-reference/${subject ? subject.id : ""}`}
       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
     >
       Add Online Reference
     </Link>
+            }
 
   </div>
 
-  <div className="relative overflow-x-auto sm:col-span-2">
+  <div className="relative overflow-x-auto sm:col-span-3">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
         <tr>
           <th scope="col" className="px-6 py-3">
             S. no
@@ -430,7 +559,7 @@ export default function SubjectDetail() {
         {subject?.oref?.map((oref) => (
           <tr
             key={oref.id}
-            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            className=" border-b bg-gray-800 text-white border-gray-700"
           >
             <td className="px-6 py-4">{oref.sno}</td>
             <td className="py-4">{oref.url}</td>
@@ -439,7 +568,7 @@ export default function SubjectDetail() {
               <td className="px-6 py-4">
                 <Link
                   to={`/edit-online-reference/${oref.id}`}
-                  className="inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Edit
                 </Link>

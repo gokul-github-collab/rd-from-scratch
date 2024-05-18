@@ -34,7 +34,7 @@ import AddOnlineReference from './components/AddOnlineReference'
 import EditOnlineReference from './components/EditOnlineReference'
 import EditSyllabus from './components/EditSyllabus'
 import EditSubject from './components/EditSubject'
-
+import SubjectDetail from './components/SubjectDetail'
 
 const Logout = () => {
   localStorage.clear()
