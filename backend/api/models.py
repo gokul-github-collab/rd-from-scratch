@@ -48,6 +48,7 @@ class Subject(models.Model):
     prerequisite = models.CharField(max_length=300, blank=True, null=True)
     external_mark = models.IntegerField(blank=True, null=True)
     internal_mark = models.IntegerField(blank=True, null=True)
+    t_or_p = models.CharField(max_length=50, choices=(("Theory", "Theory"), ("Practical", "Practical")), default="Theory" )
 
     def __str__(self) -> str:
         return self.name + " - " + self.semester.title + " - " + self.semester.syllabus.year
