@@ -175,6 +175,53 @@ const SubjectDetailPDF = ({ sid }) => {
                                 <Text style={[styles.tableCell, styles.bol]}>Pre-requisite(s): {subject ? subject.prerequisite : ""}</Text>
                             </View>
                         </View>
+                        {/*  */}
+
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                <Text style={[styles.tableCell, styles.header]}>Course Objectives:</Text>
+                            </View>
+                        </View>
+                        {subject && subject.cob && subject.cob.map((cob, index) => (
+                            <View style={styles.tableRow} key={index}>
+                                <View style={styles.tableColSno}>
+                                    <Text style={styles.tableCell}>{cob.sno}</Text>
+                                </View>
+                                <View style={styles.tableCol}>
+                                    <Text style={styles.tableCell}>{cob.name}</Text>
+                                </View>
+                              
+                            </View>
+                        ))}
+                        </View>
+{/*  */}
+                        <View style={styles.table}>
+
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                <Text style={[styles.tableCell, styles.header]}>Course Outcomes:</Text>
+                                <Text style={[styles.tableCell]}>Upon completion of the course, students shall have ability to</Text>
+                            </View>
+                        </View>
+                        {subject && subject.co && subject.co.map((co, index) => (
+                            <View style={styles.tableRow} key={index}>
+                                <View style={styles.tableColSno}>
+                                    <Text style={styles.tableCell}>{co.title}</Text>
+                                </View>
+                                <View style={styles.tableCol}>
+                                    <Text style={styles.tableCell}>{co.description}</Text>
+                                </View>
+                                <View style={styles.tableColSno}>
+                                    <Text style={styles.tableCell}>{co.uap}</Text>
+                                </View>
+                            </View>
+                        ))}
+
+{/*  */}
+
+
+
+
                         <View style={styles.tableRow}>
                             <View style={styles.tableCol}>
                                 <Text style={[styles.tableCell, styles.header]}>Course Content:</Text>
@@ -206,14 +253,7 @@ const SubjectDetailPDF = ({ sid }) => {
                                 <Text style={[styles.tableCell, styles.header]}>Text Book Reference</Text>
                             </View>
                         </View>
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableColSno}>
-                                <Text style={[styles.tableCell, styles.header]}>S.no</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={[styles.tableCell, styles.header]}>Text Book Name</Text>
-                            </View>
-                        </View>
+                      
                         {subject && subject.tb && subject.tb.map((tb, index) => (
                             <View style={styles.tableRow} key={index}>
                                 <View style={styles.tableColSno}>
@@ -224,17 +264,11 @@ const SubjectDetailPDF = ({ sid }) => {
                                 </View>
                             </View>
                         ))}
+
+                        {/*  */}
                         <View style={styles.tableRow}>
                             <View style={styles.tableCol}>
                                 <Text style={[styles.tableCell, styles.header]}>Reference Book</Text>
-                            </View>
-                        </View>
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableColSno}>
-                                <Text style={[styles.tableCell, styles.header]}>S.no</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={[styles.tableCell, styles.header]}>Reference Book Name</Text>
                             </View>
                         </View>
                         {subject && subject.rb && subject.rb.map((rb, index) => (
@@ -247,17 +281,11 @@ const SubjectDetailPDF = ({ sid }) => {
                                 </View>
                             </View>
                         ))}
+
+                        {/*  */}
                         <View style={styles.tableRow}>
                             <View style={styles.tableCol}>
                                 <Text style={[styles.tableCell, styles.header]}>Website Reference</Text>
-                            </View>
-                        </View>
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableColSno}>
-                                <Text style={[styles.tableCell, styles.header]}>S.no</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={[styles.tableCell, styles.header]}>Website URL</Text>
                             </View>
                         </View>
                         {subject && subject.wr && subject.wr.map((wr, index) => (
@@ -270,17 +298,11 @@ const SubjectDetailPDF = ({ sid }) => {
                                 </View>
                             </View>
                         ))}
+
+                        {/*  */}
                         <View style={styles.tableRow}>
                             <View style={styles.tableCol}>
                                 <Text style={[styles.tableCell, styles.header]}>Online Reference</Text>
-                            </View>
-                        </View>
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableColSno}>
-                                <Text style={[styles.tableCell, styles.header]}>S.no</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={[styles.tableCell, styles.header]}>Online Website URL</Text>
                             </View>
                         </View>
                         {subject && subject.oref && subject.oref.map((oref, index) => (
@@ -299,7 +321,7 @@ const SubjectDetailPDF = ({ sid }) => {
                     <Text style={[styles.tableCell, { textTransform: 'uppercase', fontSize: 8 }]}>
                         APPLICABLE FOR STUDENTS ADMITTED FROM {syllabus ? syllabus.year : ""}
                     </Text>
-                    {contentHeight > 720 && <View style={styles.pageBreakLine} />}
+                    {/* {contentHeight > 720 && <View style={styles.pageBreakLine} />} */}
                 </View>
             </Page>
         </Document>

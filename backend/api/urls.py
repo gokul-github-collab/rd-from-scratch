@@ -23,19 +23,24 @@ urlpatterns = [
 
     path("syllabus/", views.SyllabusListView.as_view(), name='syllabus-list'),
     path("syllabus/<int:pk>/", views.SyllabusDetailView.as_view(), name='syllabus-detail'), 
-path("syllabus/delete/<int:pk>/", views.SyllabusDeleteView.as_view(), name='syllabus-delete'), 
+    path("syllabus/delete/<int:pk>/", views.SyllabusDeleteView.as_view(), name='syllabus-delete'), 
 
     path("semester/", views.SemesterListView.as_view(), name='semester-list'),
     path("semester/<int:pk>/", views.SemesterDetailView.as_view(), name='semester-detail'), 
     path("semester/delete/<int:pk>/", views.SemesterDelete.as_view(), name='semester-delete'), 
 
-
-
-     path('semester/<int:semester_id>/subjects/', views.SubjectsBySemesterView.as_view(), name='subjects-by-semester'),
+    path('semester/<int:semester_id>/subjects/', views.SubjectsBySemesterView.as_view(), name='subjects-by-semester'),
 
     path("subject/", views.SubjectListView.as_view(), name='subject-list'),
     path("subject/<int:pk>/", views.SubjectDetailView.as_view(), name='subject-detail'), 
-path("subject/delete/<int:pk>/", views.SubjectDelete.as_view(), name='subject-delete'), 
+    path("subject/delete/<int:pk>/", views.SubjectDelete.as_view(), name='subject-delete'), 
+    path('t_or_p_choices/', views.TORPChoiceAPIView.as_view(), name='t_or_p_choices'),
+
+
+    path("course-objective/", views.CourseObjectivesListView.as_view(), name='course-objectives-list'),
+    path("course-objective/<int:pk>/", views.CourseObjectivesDetailView.as_view(), name='course-objectives-detail'),
+    path("course-objective/delete/<int:pk>/", views.CourseObjectivesDeleteView.as_view(), name='course-objectives-delete'),
+
 
     path("course-outcome/", views.CourseOutcomeListView.as_view(), name='course-outcome-list'),
     path("course-outcome/<int:pk>/", views.CourseOutcomeDetailView.as_view(), name='course-outcome-detail'),

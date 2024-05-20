@@ -36,7 +36,7 @@ const DeleteSyllabus = ({sylId}) => {
         }
     }
     return (
-        <button className="inline bg-gradient-to-tr mt-2 from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md" onClick={handleDeleteCourseOutcome} >Delete</button>
+        <button className="text-red-500" onClick={handleDeleteCourseOutcome} >- Delete</button>
     )
 }
 

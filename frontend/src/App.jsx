@@ -35,6 +35,10 @@ import EditOnlineReference from './components/EditOnlineReference'
 import EditSyllabus from './components/EditSyllabus'
 import EditSubject from './components/EditSubject'
 import SubjectDetail from './components/SubjectDetail'
+import AddCourseObjective from './components/AddCourseObjective'
+import EditCourseObjective from './components/EditCourseObjective'
+
+
 
 const Logout = () => {
   localStorage.clear()
@@ -88,6 +92,10 @@ function App() {
           <Route path='edit-course-outcome/:id' element={<ProtectedRoute> <EditCourseOutcome /> </ProtectedRoute>} />
           <Route path='/syllabus/:sid/subject/:ssid/add-course-outcome/:id' element={<ProtectedRoute> <AddCourseOutcome /> </ProtectedRoute>} />
           <Route path='/subject/:ssid/add-course-outcome/:id' element={<ProtectedRoute> <AddCourseOutcome /> </ProtectedRoute>} />
+
+
+          <Route path='add-course-objective/:id' element={<ProtectedRoute> <AddCourseObjective /> </ProtectedRoute>} />
+          <Route path='edit-course-objective/:id' element={<ProtectedRoute> <EditCourseObjective /> </ProtectedRoute>} />
 
 
           <Route path='add-course-content/:id' element={<ProtectedRoute> <AddCourseContent /> </ProtectedRoute>} />

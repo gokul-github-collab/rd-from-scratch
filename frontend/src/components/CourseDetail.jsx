@@ -242,12 +242,16 @@ const CourseDetail = () => {
     Add Syllabus
   </Link>}
 
-        {course.syllabus && course.syllabus.map((syllabus) => (<>
-        
-          <Link to={`/syllabus/${syllabus.id}`} className='block text-indigo-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> {syllabus.year}</Link>
-          <Link to={`/edit-syllabus/${syllabus.id}`} className='block text-putple-500' key={syllabus.id}><FaAsterisk className='inline-block h-3' /> Edit</Link>
-          <DeleteSyllabus sylId={syllabus.id} />
-        </>
+  {course.syllabus && course.syllabus.map((syllabus) => (
+  <div key={syllabus.id} className="flex items-center space-x-4">
+    <Link to={`/syllabus/${syllabus.id}`} className='text-indigo-500'>
+      <FaAsterisk className='inline-block h-3' /> {syllabus.year}
+    </Link> 
+    <Link to={`/edit-syllabus/${syllabus.id}`} className='text-purple-500'>
+  - Edit
+    </Link> 
+    <DeleteSyllabus sylId={syllabus.id} />
+  </div>
 ))}
 
       </div>

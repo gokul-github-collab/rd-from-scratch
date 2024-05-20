@@ -27,6 +27,7 @@ import {
 } from '@heroicons/react/20/solid'
 import { HiMiniPlusCircle } from "react-icons/hi2";
 import { Menu, Transition } from '@headlessui/react'
+import DeleteCourseObjective from './DeleteCourseObjective'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -180,12 +181,59 @@ export default function SubjectDetail() {
     </div>
 
 
+{/* Course Objectives */}
 
+<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Course Objectives</p>
+              {isSuperuser && 
+              
+              <Link to={`/add-course-objective/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Objectives</Link>
+              }
+            </div>
 
+            <div className="relative overflow-x-auto col-span-3 rounded-lg">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 text-gray-400 bg-gray-800 ">
+                <thead className="text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
 
+                  <tr className='text-white-700 bg-gray-50 bg-gray-700 text-gray-400'>
+                    <th scope="col" className="px-6 py-3 text-white-700 bg-gray-50 bg-gray-700 text-gray-400">
+                      S. no
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                     Description
+                    </th>
+                   
+                    {isSuperuser &&
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
 
+                    }
+                  </tr>
 
+                </thead>
+                <tbody>
 
+                  {subject && subject.cob && subject.cob.map((cob) => (
+                    <tr key={cob.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
+                      <td className="px-6 py-4  text-white">{cob.sno}</td>
+                      <td className="px-6 py-4  text-white">{cob.name}</td>
+
+                      <td className="px-6 py-4  text-white">
+                        {isSuperuser &&
+                          <Link to={`/edit-course-objective/${cob.id}`} className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Edit</Link>
+                        }
+                        {isSuperuser &&
+                          <DeleteCourseObjective cobId={cob.id} />
+                        }
+                        </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
 
           
@@ -249,6 +297,9 @@ export default function SubjectDetail() {
 
 
           {/* Course Content*/}
+
+        
+{(subject && subject.t_or_p === "Theory" || subject && subject.t_or_p === "Theory and Practical" ) && (
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
     <p>Course Content</p>
@@ -314,8 +365,7 @@ export default function SubjectDetail() {
       </tbody>
     </table>
   </div>
-</div>
-
+</div>)}
 
 
 
@@ -387,6 +437,8 @@ export default function SubjectDetail() {
   
 </div>
 
+
+
 {/* Reference Book */}
 
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -455,6 +507,8 @@ export default function SubjectDetail() {
 </div>
   
 
+
+
 {/* Web References  */}
 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
   <div className="text-sm font-medium leading-6 text-gray-900">
@@ -519,6 +573,8 @@ export default function SubjectDetail() {
 
   
 </div>
+
+
 
 
 {/* Online References  */}

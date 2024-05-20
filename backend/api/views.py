@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer,SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseContentSerializer, CourseOutcomeSerializer
-from .serializers import TextBookSerializer, ReferenceBookSerializer, WebReferenceSerializer, OnlineReferenceSerializer
+from .serializers import TextBookSerializer, ReferenceBookSerializer, WebReferenceSerializer, OnlineReferenceSerializer, CourseObjectivesSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -264,3 +264,25 @@ class OnlineReferenceDeleteView(generics.DestroyAPIView):
     queryset = OnlineReference.objects.all()
     serializer_class = OnlineReferenceSerializer
     permission_classes = [AllowAny]
+
+class CourseObjectivesListView(generics.ListCreateAPIView):
+    queryset = CourseObjectives.objects.all()
+    serializer_class = CourseObjectivesSerializer
+    permission_classes = [AllowAny]
+
+class CourseObjectivesDetailView(generics.RetrieveUpdateAPIView):
+    queryset = CourseObjectives.objects.all()
+    serializer_class = CourseObjectivesSerializer
+    permission_classes = [AllowAny]
+
+
+class CourseObjectivesDeleteView(generics.DestroyAPIView):
+    queryset = CourseObjectives.objects.all()
+    serializer_class = CourseObjectivesSerializer
+    permission_classes = [AllowAny]
+
+class TORPChoiceAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        choices = Subject._meta.get_field('t_or_p').choices
+        serialized_choices = [{'value': choice[0], 'display': choice[1]} for choice in choices]
+        return response.Response(serialized_choices)
