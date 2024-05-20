@@ -71,7 +71,7 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
   return (
     <div className="border border-gray-200 rounded p-4 mb-2">
       <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
-        <h2 className="text-lg font-medium">{question}         <Link 
+        <h2 className="text-lg font-medium">{question}   {isSuperuser && <>     <Link 
             to={`/edit-semester/${id}`}
             className=" mx-1 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
@@ -93,7 +93,8 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
             {/* <HiMiniPlusCircle className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> */}
             <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
            Add Subject
-          </Link>
+          </Link> 
+          </> }
 </h2>
         <SlArrowDown />
       </div>

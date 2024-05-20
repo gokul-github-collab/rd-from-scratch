@@ -131,13 +131,13 @@ const SyllabusDetail = () => {
                 <div className="lg:pr-4">
                   <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
 
-
+{isSuperUser && 
                     <Link
                       to={`/add-semester/${syllabus ? syllabus.id : ""}/${course ? course.id : ""}`}
                       className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                     >
                       Add Semester
-                    </Link>
+                    </Link>}
                     {syllabus && syllabus.sem && syllabus.sem.map((sem) => (
                       <SemesterDetail key={sem.id} semId={sem.id} />
 

@@ -237,7 +237,7 @@ const CourseDetail = () => {
                 <h3 className="text-indigo-800 text-lg font-bold mb-6">Syllabus</h3>
                 {isSuperuser && <Link
                   to={`/add-syllabus/${course.id}`}
-                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  className="inline-block mb-2 bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
                   Add Syllabus
                 </Link>}
@@ -247,10 +247,10 @@ const CourseDetail = () => {
                     <Link to={`/syllabus/${syllabus.id}`} className='text-indigo-500'>
                       <FaAsterisk className='inline-block h-3' /> {syllabus.year}
                     </Link>
-                    <Link to={`/edit-syllabus/${syllabus.id}`} className='text-purple-500'>
+                {isSuperuser && <>  <Link to={`/edit-syllabus/${syllabus.id}`} className='text-purple-500'>
                       - Edit
                     </Link>
-                    <DeleteSyllabus sylId={syllabus.id} />
+                    <DeleteSyllabus sylId={syllabus.id} /> </>  }
                   </div>
                 ))}
 
