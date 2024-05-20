@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer, NoteSerializer, CourseSerializer, PoSerializer, PsoSerializer,SyllabusSerializer, SemesterSerializer, SubjectSerializer, CourseContentSerializer, CourseOutcomeSerializer
-from .serializers import TextBookSerializer, ReferenceBookSerializer, WebReferenceSerializer, OnlineReferenceSerializer, CourseObjectivesSerializer
+from .serializers import TextBookSerializer, ReferenceBookSerializer, WebReferenceSerializer, OnlineReferenceSerializer, CourseObjectivesSerializer, LabComponentSerializer
 from django.contrib.auth.models import User
 from rest_framework import response
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives
+from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives, LabComponent
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -176,6 +176,22 @@ class CourseOutcomeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CourseOutcomeDeleteView(generics.DestroyAPIView):
     queryset = CourseOutcome.objects.all()
     serializer_class = CourseOutcomeSerializer
+    permission_classes = [AllowAny]
+
+class LabComponentListView(generics.ListCreateAPIView):
+    queryset = LabComponent.objects.all()
+    serializer_class = LabComponentSerializer
+    permission_classes = [AllowAny]
+
+
+class LabComponentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LabComponent.objects.all()
+    serializer_class = LabComponentSerializer
+    permission_classes = [AllowAny]
+
+class LabComponentDeleteView(generics.DestroyAPIView):
+    queryset = LabComponent.objects.all()
+    serializer_class = LabComponentSerializer
     permission_classes = [AllowAny]
 
 

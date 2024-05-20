@@ -69,6 +69,16 @@ class CourseOutcome(models.Model):
     def __str__(self) -> str:
         return self.title 
     
+class LabComponent(models.Model):
+    sno = models.CharField(max_length=100)
+    lie = models.CharField(max_length=400)
+    co_mapping = models.CharField(max_length=100)
+    rbt = models.CharField(max_length=100)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="lab")
+
+    def __str__(self) -> str:
+        return self.lie[:20] + " - " + self.subject.name
+    
 class CourseContent(models.Model):
     module = models.CharField(max_length=100)
     title = models.CharField(max_length=100)

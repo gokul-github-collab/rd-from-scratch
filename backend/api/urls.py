@@ -68,4 +68,8 @@ urlpatterns = [
     path("online-reference/<int:pk>/", views.OnlineReferenceDetailView.as_view(), name='online-reference-detail'),
     path("online-reference/delete/<int:pk>/", views.OnlineReferenceDeleteView.as_view(), name='online-reference-delete'),
 
+
+    path("lab-component/", views.LabComponentListView.as_view(), name='lab-component-list'),
+    path("lab-component/<int:pk>/", views.LabComponentDetailView.as_view(), name='lab-component-detail'),
+    path("lab-component/delete/<int:pk>/", views.LabComponentDeleteView.as_view(), name='lab-component-delete'),
 ]

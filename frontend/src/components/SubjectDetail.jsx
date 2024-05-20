@@ -28,6 +28,7 @@ import {
 import { HiMiniPlusCircle } from "react-icons/hi2";
 import { Menu, Transition } from '@headlessui/react'
 import DeleteCourseObjective from './DeleteCourseObjective'
+import DeleteLabComponent from './DeleteLabComponent'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -43,10 +44,10 @@ export default function SubjectDetail() {
 
   const navigate = useNavigate()
 
-  
-  
+
+
   const [subject, setSubject] = useState(null)
-  
+
 
   const [isSuperuser, setIsSuperuser] = useState(false)
 
@@ -57,10 +58,10 @@ export default function SubjectDetail() {
   }
 
   const handleDeleteSubject = () => {
-    console.log(subject? subject.id: "")
-    if (window.confirm(`Are you sure you want to delete ${subject? subject.name: ""}`)) {
+    console.log(subject ? subject.id : "")
+    if (window.confirm(`Are you sure you want to delete ${subject ? subject.name : ""}`)) {
       try {
-        api.delete(`/api/subject/delete/${subject? subject.id: ""}/`)
+        api.delete(`/api/subject/delete/${subject ? subject.id : ""}/`)
         toast.error('Subject deleted successfully')
         navigate(`/courses`);
       } catch (err) {
@@ -77,93 +78,97 @@ export default function SubjectDetail() {
   }
   return (
     <div className='mt-24 lg:px-64 '>
-      
+
       <div className="mt-6 border-t border-gray-100">
         <dl className="divide-y divide-gray-100">
-          
+
           {/* */}
 
-    <div className="lg:flex lg:items-center lg:justify-between py-5">
-      <div className="min-w-0 flex-1 px-4">
-        <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-          {subject? subject.name: ""}
-        </h2>
-        <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Course Code: {subject? subject.course_code: ""}
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-          <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Lecture Tutorial Practical Course: {subject? subject.ltpc: ""}
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-          <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Prerequisite: {subject? subject.prerequisite: ""}
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            External Mark: {subject? subject.external_mark: ""}
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Internal Mark: {subject? subject.internal_mark: ""}
-          </div>
-        </div>
-      </div>
-      {isSuperuser && 
-      
-      <div className="mt-5 flex lg:ml-4 lg:mt-0">
-        <span className="hidden sm:block">
-          <Link 
-            to={`/edit-subject/${subject? subject.id: ""}`}
-            className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-            Edit
-          </Link>
-        </span>
+          <div className="lg:flex lg:items-center lg:justify-between py-5">
+            <div className="min-w-0 flex-1 px-4">
+              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                {subject ? subject.name : ""}
+              </h2>
+              <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Course Code: {subject ? subject.course_code : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Lecture Tutorial Practical Course: {subject ? subject.ltpc : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Prerequisite: {subject ? subject.prerequisite : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  External Mark: {subject ? subject.external_mark : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Internal Mark: {subject ? subject.internal_mark : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Subject Type: {subject ? subject.t_or_p : ""}
+                </div>
+              </div>
+            </div>
+            {isSuperuser &&
 
-        
-
-        <span className="sm:ml-3">
-          <button
-            type="button" onClick={handleDeleteSubject}
-            className=" inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-          >
-            <CheckIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-            Delete
-          </button>
-        </span>
-
-        {/* Dropdown */}
-        <Menu as="div" className="relative ml-3 sm:hidden">
-          <Menu.Button className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
-            More
-            <ChevronDownIcon className="-mr-1 ml-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-          </Menu.Button>
-
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-200"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <Menu.Item>
-                {({ active }) => (
+              <div className="mt-5 flex lg:ml-4 lg:mt-0">
+                <span className="hidden sm:block">
                   <Link
-                    to={`/edit-subject/${subject? subject.id: ""}`}
-                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    to={`/edit-subject/${subject ? subject.id : ""}`}
+                    className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
+                    <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                     Edit
                   </Link>
-                )}
-              </Menu.Item>
-              {/* <Menu.Item>
+                </span>
+
+
+
+                <span className="sm:ml-3">
+                  <button
+                    type="button" onClick={handleDeleteSubject}
+                    className=" inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                  >
+                    <CheckIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+                    Delete
+                  </button>
+                </span>
+
+                {/* Dropdown */}
+                <Menu as="div" className="relative ml-3 sm:hidden">
+                  <Menu.Button className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
+                    More
+                    <ChevronDownIcon className="-mr-1 ml-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                  </Menu.Button>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-200"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to={`/edit-subject/${subject ? subject.id : ""}`}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Edit
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      {/* <Menu.Item>
                 {({ active }) => (
                   <a
                     href="#"
@@ -173,22 +178,22 @@ export default function SubjectDetail() {
                   </a>
                 )}
               </Menu.Item> */}
-            </Menu.Items>
-          </Transition>
-        </Menu>
-      </div>
-      }
-    </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            }
+          </div>
 
 
-{/* Course Objectives */}
+          {/* Course Objectives */}
 
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <div className="text-sm font-medium leading-6 text-gray-900">
               <p>Course Objectives</p>
-              {isSuperuser && 
-              
-              <Link to={`/add-course-objective/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Objectives</Link>
+              {isSuperuser &&
+
+                <Link to={`/add-course-objective/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Objectives</Link>
               }
             </div>
 
@@ -201,9 +206,9 @@ export default function SubjectDetail() {
                       S. no
                     </th>
                     <th scope="col" className="px-6 py-3">
-                     Description
+                      Description
                     </th>
-                   
+
                     {isSuperuser &&
                       <th scope="col" className="px-6 py-3">
                         Edit or Delete
@@ -227,7 +232,7 @@ export default function SubjectDetail() {
                         {isSuperuser &&
                           <DeleteCourseObjective cobId={cob.id} />
                         }
-                        </td>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -236,15 +241,15 @@ export default function SubjectDetail() {
           </div>
 
 
-          
+
 
           {/* Course Outcome */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <div className="text-sm font-medium leading-6 text-gray-900">
               <p>Course Outcome</p>
-              {isSuperuser && 
-              
-              <Link to={`/add-course-outcome/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
+              {isSuperuser &&
+
+                <Link to={`/add-course-outcome/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Course Outcome</Link>
               }
             </div>
 
@@ -294,78 +299,138 @@ export default function SubjectDetail() {
 
 
 
+          {/* Lab Component */}
+         {(subject && subject.t_or_p === "Theory and Practical" || subject && subject.t_or_p === "Practical" ) &&
+          (<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Lab Component</p>
+              {isSuperuser &&
 
+                <Link to={`/add-lab-component/${subject ? subject.id : ""}`} className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Add Lab Component</Link>
+              }
+            </div>
+
+            <div className="relative overflow-x-auto col-span-3 rounded-lg">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 text-gray-400 bg-gray-800 ">
+                <thead className="text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+
+                  <tr className='text-white-700 bg-gray-50 bg-gray-700 text-gray-400'>
+                    <th scope="col" className="px-6 py-3 text-white-700 bg-gray-50 bg-gray-700 text-gray-400">
+                      S. no
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      List of Experiments
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                     CO Mapping
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                    RBT
+                    </th>
+                    {isSuperuser &&
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+
+                    }
+                  </tr>
+
+                </thead>
+                <tbody>
+
+                  {subject && subject.lab && subject.lab.map((lab) => (
+                    <tr key={lab.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
+                      <td className="px-6 py-4  text-white">{lab.sno}</td>
+                      <td className="px-6 py-4  text-white">{lab.lie}</td>
+                      <td className="px-6 py-4  text-white">{lab.co_mapping}</td>
+                      <td className="px-6 py-4  text-white">{lab.rbt}</td>
+
+                      <td className="px-6 py-4  text-white">
+                        {isSuperuser &&
+                          <Link to={`/edit-lab-component/${lab.id}`} className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md" >Edit</Link>
+                        }
+                        {isSuperuser &&
+                          <DeleteLabComponent labId={lab.id} />
+                        }
+                        
+                        </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>)}
 
           {/* Course Content*/}
 
-        
-{(subject && subject.t_or_p === "Theory" || subject && subject.t_or_p === "Theory and Practical" ) && (
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Course Content</p>
-    {isSuperuser && 
-              
-    <Link
-      to={`/add-course-content/${subject ? subject.id : ""}`}
-      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-    >
-      Add Course Content
-    </Link>
-            }
-  </div>
 
-  <div className="relative overflow-x-auto sm:col-span-3">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            Module
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Title
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Description
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Hours Per Week
-          </th>
-          {isSuperuser && (
-            <th scope="col" className="px-6 py-3">
-              Edit or Delete
-            </th>
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {subject?.cc?.map((cc) => (
-          <tr
-            key={cc.id}
-            className=" border-b bg-gray-800 text-white border-gray-700"
-          >
-            <td className="px-6 py-4">{cc.module}</td>
-            <td className="py-4">{cc.title}</td>
-            <td className="w-1/2 py-4">{cc.description}
-          
-            </td>
-            <td className="px-6 py-4">{cc.hrs_pw}</td>
-            {isSuperuser && (
-              <td className="px-6 py-4">
-                <Link
-                  to={`/edit-course-content/${cc.id}`}
-                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-                >
-                  Edit
-                </Link>
-                <DeleteCourseContent ccId={cc.id} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>)}
+          {(subject && subject.t_or_p === "Theory" || subject && subject.t_or_p === "Theory and Practical") && (
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <div className="text-sm font-medium leading-6 text-gray-900">
+                <p>Course Content</p>
+                {isSuperuser &&
+
+                  <Link
+                    to={`/add-course-content/${subject ? subject.id : ""}`}
+                    className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  >
+                    Add Course Content
+                  </Link>
+                }
+              </div>
+
+              <div className="relative overflow-x-auto sm:col-span-3">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-6 py-3">
+                        Module
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Title
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Description
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Hours Per Week
+                      </th>
+                      {isSuperuser && (
+                        <th scope="col" className="px-6 py-3">
+                          Edit or Delete
+                        </th>
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {subject?.cc?.map((cc) => (
+                      <tr
+                        key={cc.id}
+                        className=" border-b bg-gray-800 text-white border-gray-700"
+                      >
+                        <td className="px-6 py-4">{cc.module}</td>
+                        <td className="py-4">{cc.title}</td>
+                        <td className="w-1/2 py-4">{cc.description}
+
+                        </td>
+                        <td className="px-6 py-4">{cc.hrs_pw}</td>
+                        {isSuperuser && (
+                          <td className="px-6 py-4">
+                            <Link
+                              to={`/edit-course-content/${cc.id}`}
+                              className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                            >
+                              Edit
+                            </Link>
+                            <DeleteCourseContent ccId={cc.id} />
+                          </td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>)}
 
 
 
@@ -373,297 +438,297 @@ export default function SubjectDetail() {
 
 
           {/* Text Book Reference */}
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Text Book Reference</p>
-    {isSuperuser && 
-              
-    <Link
-      to={`/add-text-book/${subject ? subject.id : ""}`}
-      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-    >
-      Add  Text Book Reference
-    </Link>
-            }
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Text Book Reference</p>
+              {isSuperuser &&
 
-  </div>
-
-  <div className="relative overflow-x-auto sm:col-span-3">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            S. no
-          </th>
-          <th scope="col" className="">
-            Book Name
-          </th>
-
-          {isSuperuser && (
-            <th scope="col" className="px-6 py-3">
-              Edit or Delete
-            </th>
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {subject?.tb?.map((tb) => (
-          <tr
-            key={tb.id}
-            className=" border-b bg-gray-800 text-white border-gray-700"
-          >
-            <td className="px-6 py-4">{tb.sno}</td>
-            <td className="py-4">{tb.name}</td>
-
-            {isSuperuser && (
-              <td className="px-6 py-4">
                 <Link
-                  to={`/edit-text-book/${tb.id}`}
-                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  to={`/add-text-book/${subject ? subject.id : ""}`}
+                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
-                  Edit
+                  Add  Text Book Reference
                 </Link>
-                <DeleteTextBookReference tbId={tb.id} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+              }
+
+            </div>
+
+            <div className="relative overflow-x-auto sm:col-span-3">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      S. no
+                    </th>
+                    <th scope="col" className="">
+                      Book Name
+                    </th>
+
+                    {isSuperuser && (
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {subject?.tb?.map((tb) => (
+                    <tr
+                      key={tb.id}
+                      className=" border-b bg-gray-800 text-white border-gray-700"
+                    >
+                      <td className="px-6 py-4">{tb.sno}</td>
+                      <td className="py-4">{tb.name}</td>
+
+                      {isSuperuser && (
+                        <td className="px-6 py-4">
+                          <Link
+                            to={`/edit-text-book/${tb.id}`}
+                            className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                          >
+                            Edit
+                          </Link>
+                          <DeleteTextBookReference tbId={tb.id} />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
 
 
-  
-</div>
+
+          </div>
 
 
 
-{/* Reference Book */}
+          {/* Reference Book */}
 
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Reference Book</p>
-    {isSuperuser && 
-              
-    <Link
-      to={`/add-reference-book/${subject ? subject.id : ""}`}
-      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-    >
-      Add Reference Book
-    </Link>
-            }
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Reference Book</p>
+              {isSuperuser &&
 
-  </div>
-
-  <div className="relative overflow-x-auto sm:col-span-3">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            S. no
-          </th>
-          <th scope="col" className="">
-            Book Name
-          </th>
-
-          {isSuperuser && (
-            <th scope="col" className="px-6 py-3">
-              Edit or Delete
-            </th>
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {subject?.rb?.map((rb) => (
-          
-          <tr
-            key={rb.id}
-            className=" border-b bg-gray-800 text-white border-gray-700"
-          >
-            <td className="px-6 py-4">{rb.sno}</td>
-            <td className="py-4">{rb.name}</td>
-
-            {isSuperuser && (
-              <td className="px-6 py-4">
                 <Link
-                  to={`/edit-reference-book/${rb.id}`}
-                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  to={`/add-reference-book/${subject ? subject.id : ""}`}
+                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
-                  Edit
+                  Add Reference Book
                 </Link>
-                <DeleteReferenceBook rbId={rb.id} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+              }
+
+            </div>
+
+            <div className="relative overflow-x-auto sm:col-span-3">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      S. no
+                    </th>
+                    <th scope="col" className="">
+                      Book Name
+                    </th>
+
+                    {isSuperuser && (
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {subject?.rb?.map((rb) => (
+
+                    <tr
+                      key={rb.id}
+                      className=" border-b bg-gray-800 text-white border-gray-700"
+                    >
+                      <td className="px-6 py-4">{rb.sno}</td>
+                      <td className="py-4">{rb.name}</td>
+
+                      {isSuperuser && (
+                        <td className="px-6 py-4">
+                          <Link
+                            to={`/edit-reference-book/${rb.id}`}
+                            className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                          >
+                            Edit
+                          </Link>
+                          <DeleteReferenceBook rbId={rb.id} />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
 
 
-  
-</div>
-  
+
+          </div>
 
 
 
-{/* Web References  */}
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Web Reference</p>
-    {isSuperuser && 
-              
-    <Link
-      to={`/add-web-reference/${subject ? subject.id : ""}`}
-      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-    >
-      Add Web Reference
-    </Link>
-            }
 
-  </div>
+          {/* Web References  */}
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Web Reference</p>
+              {isSuperuser &&
 
-  <div className="relative overflow-x-auto sm:col-span-3">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            S. no
-          </th>
-          <th scope="col" className="">
-            URL
-          </th>
-
-          {isSuperuser && (
-            <th scope="col" className="px-6 py-3">
-              Edit or Delete
-            </th>
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {subject?.wr?.map((wr) => (
-          <tr
-            key={wr.id}
-            className=" border-b bg-gray-800 text-white border-gray-700"
-          >
-            <td className="px-6 py-4">{wr.sno}</td>
-            <td className="py-4">{wr.url}</td>
-
-            {isSuperuser && (
-              <td className="px-6 py-4">
                 <Link
-                  to={`/edit-web-reference/${wr.id}`}
-                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  to={`/add-web-reference/${subject ? subject.id : ""}`}
+                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
-                  Edit
+                  Add Web Reference
                 </Link>
-                <DeleteWebReference wrId={wr.id} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+              }
+
+            </div>
+
+            <div className="relative overflow-x-auto sm:col-span-3">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      S. no
+                    </th>
+                    <th scope="col" className="">
+                      URL
+                    </th>
+
+                    {isSuperuser && (
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {subject?.wr?.map((wr) => (
+                    <tr
+                      key={wr.id}
+                      className=" border-b bg-gray-800 text-white border-gray-700"
+                    >
+                      <td className="px-6 py-4">{wr.sno}</td>
+                      <td className="py-4">{wr.url}</td>
+
+                      {isSuperuser && (
+                        <td className="px-6 py-4">
+                          <Link
+                            to={`/edit-web-reference/${wr.id}`}
+                            className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                          >
+                            Edit
+                          </Link>
+                          <DeleteWebReference wrId={wr.id} />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
 
 
-  
-</div>
+
+          </div>
 
 
 
 
-{/* Online References  */}
-<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-  <div className="text-sm font-medium leading-6 text-gray-900">
-    <p>Online Reference</p>
-    {isSuperuser && 
-              
-    <Link
-      to={`/add-online-reference/${subject ? subject.id : ""}`}
-      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-    >
-      Add Online Reference
-    </Link>
-            }
+          {/* Online References  */}
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div className="text-sm font-medium leading-6 text-gray-900">
+              <p>Online Reference</p>
+              {isSuperuser &&
 
-  </div>
-
-  <div className="relative overflow-x-auto sm:col-span-3">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            S. no
-          </th>
-          <th scope="col" className="">
-            URL
-          </th>
-
-          {isSuperuser && (
-            <th scope="col" className="px-6 py-3">
-              Edit or Delete
-            </th>
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {subject?.oref?.map((oref) => (
-          <tr
-            key={oref.id}
-            className=" border-b bg-gray-800 text-white border-gray-700"
-          >
-            <td className="px-6 py-4">{oref.sno}</td>
-            <td className="py-4">{oref.url}</td>
-
-            {isSuperuser && (
-              <td className="px-6 py-4">
                 <Link
-                  to={`/edit-online-reference/${oref.id}`}
-                  className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                  to={`/add-online-reference/${subject ? subject.id : ""}`}
+                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
                 >
-                  Edit
+                  Add Online Reference
                 </Link>
-                <DeleteOnlineReference orefId={oref.id} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+              }
+
+            </div>
+
+            <div className="relative overflow-x-auto sm:col-span-3">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-xs text-white-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      S. no
+                    </th>
+                    <th scope="col" className="">
+                      URL
+                    </th>
+
+                    {isSuperuser && (
+                      <th scope="col" className="px-6 py-3">
+                        Edit or Delete
+                      </th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {subject?.oref?.map((oref) => (
+                    <tr
+                      key={oref.id}
+                      className=" border-b bg-gray-800 text-white border-gray-700"
+                    >
+                      <td className="px-6 py-4">{oref.sno}</td>
+                      <td className="py-4">{oref.url}</td>
+
+                      {isSuperuser && (
+                        <td className="px-6 py-4">
+                          <Link
+                            to={`/edit-online-reference/${oref.id}`}
+                            className="mr-1 inline-block bg-gradient-to-tr mt-2 from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                          >
+                            Edit
+                          </Link>
+                          <DeleteOnlineReference orefId={oref.id} />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
 
 
-  
-</div>
 
-{console.log(`Subject ID: ${subject? subject.id: ""}`)}
-<aside>
-<div style={{ textAlign: 'center', marginTop: '50px' }}>
-        <h1>Subject Details</h1>
-        <PDFDownloadLink
-            document={<SubjectDetailPDF sid={subject? subject.id: ""} />}
-            fileName="subject-details.pdf"
-            style={{
-                textDecoration: 'none',
-                padding: '10px 20px',
-                color: '#fff',
-                backgroundColor: '#007BFF',
-                border: 'none',
-                borderRadius: '4px',
-            }}
-        >
-            {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
-        </PDFDownloadLink>
-    </div>
-</aside>
+          </div>
 
-{/* 
+          {console.log(`Subject ID: ${subject ? subject.id : ""}`)}
+          <aside>
+            <div style={{ textAlign: 'center', marginTop: '50px' }}>
+              <h1>Subject Details</h1>
+              <PDFDownloadLink
+                document={<SubjectDetailPDF sid={subject ? subject.id : ""} />}
+                fileName="subject-details.pdf"
+                style={{
+                  textDecoration: 'none',
+                  padding: '10px 20px',
+                  color: '#fff',
+                  backgroundColor: '#007BFF',
+                  border: 'none',
+                  borderRadius: '4px',
+                }}
+              >
+                {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+              </PDFDownloadLink>
+            </div>
+          </aside>
+
+          {/* 
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">

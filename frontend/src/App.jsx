@@ -37,6 +37,7 @@ import EditSubject from './components/EditSubject'
 import SubjectDetail from './components/SubjectDetail'
 import AddCourseObjective from './components/AddCourseObjective'
 import EditCourseObjective from './components/EditCourseObjective'
+import AddLabComponent from './components/AddLabComponent'
 
 
 
@@ -117,6 +118,9 @@ function App() {
 
           <Route path='add-online-reference/:id' element={<ProtectedRoute> <AddOnlineReference /> </ProtectedRoute>} />
           <Route path='edit-online-reference/:id' element={<ProtectedRoute> <EditOnlineReference /> </ProtectedRoute>} />
+
+          <Route path='add-lab-component/:id' element={<ProtectedRoute> <AddLabComponent /> </ProtectedRoute>} />
+          <Route path='edit-lab-component/:id' element={<ProtectedRoute> <EditOnlineReference /> </ProtectedRoute>} />
           </Route>
 
           <Route path='/login' element={<Login />} />

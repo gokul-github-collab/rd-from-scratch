@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives
+from .models import Note, Course, Po, LabComponent, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,6 +56,11 @@ class CourseObjectivesSerializer(serializers.ModelSerializer):
         model = CourseObjectives
         fields = ("id", "sno", "name", "subject")
 
+class LabComponentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LabComponent
+        fields =  ("id", "sno", "lie", "co_mapping", "rbt", "subject")
+
 class SubjectSerializer(serializers.ModelSerializer):
     cob = CourseObjectivesSerializer(many=True, read_only=True)
     co = CourseOutcomeSerializer(many=True, read_only=True)
@@ -64,10 +69,11 @@ class SubjectSerializer(serializers.ModelSerializer):
     rb = ReferenceBookSerializer(many=True, read_only=True)
     wr = WebReferenceSerializer(many=True, read_only=True)
     oref = OnlineReferenceSerializer(many=True, read_only=True)
+    lab = LabComponentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Subject
-        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark", "t_or_p", "cob", "co", "cc", 'tb', 'rb', 'wr', 'oref' )
+        fields = ("id", "name", "course_code", "semester", "ltpc", "prerequisite", "external_mark", "internal_mark", "t_or_p", "cob", "co", "cc", 'tb', 'rb', 'wr', 'oref', "lab" )
 
 
 
