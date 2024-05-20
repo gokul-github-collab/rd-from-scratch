@@ -29,6 +29,9 @@ const DeleteOnlineReference = ({ orefId }) => {
             try {
                 await api.delete(`/api/online-reference/delete/${oref ? oref.id : ""}/`)
                 toast.error('Online Reference deleted successfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/subject/${oref ? oref.subject : ""}`);
             } catch (err) {
                 alert(err)

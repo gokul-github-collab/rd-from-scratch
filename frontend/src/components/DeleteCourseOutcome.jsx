@@ -26,6 +26,9 @@ const DeleteCourseOutcome = ({ coId }) => {
             try {
                 await api.delete(`/api/course-outcome/delete/${co ? co.id : ""}/`)
                 toast.error('Course Outcome deleted successfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/subject/${co ? co.subject : ""}`);
             } catch (err) {
                 alert(err)

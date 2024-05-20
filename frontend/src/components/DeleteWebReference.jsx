@@ -29,6 +29,9 @@ const DeleteWebReference = ({ wrId }) => {
             try {
                 await api.delete(`/api/web-reference/delete/${wr ? wr.id : ""}/`)
                 toast.error('Web Reference deleted successfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/subject/${wr ? wr.subject : ""}`);
             } catch (err) {
                 alert(err)

@@ -28,6 +28,9 @@ const DeleteSemester = ({ semId }) => {
       try {
         await api.delete(`/api/semester/delete/${semester.id}/`)
         toast.error('Semester deleted successfully')
+        setTimeout(()=>{
+          window.location.reload()
+      }, 1500)
         navigate(`/syllabus/${semester ? semester.syllabus : ""}`);
       } catch (err) {
         alert(err)

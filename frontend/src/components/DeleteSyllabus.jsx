@@ -28,6 +28,9 @@ const DeleteSyllabus = ({ sylId }) => {
             try {
                 await api.delete(`/api/syllabus/delete/${syl ? syl.id : ""}/`)
                 toast.error('Syllabus deleted susylessfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/courses/${syl ? syl.course : ""}`);
             } catch (err) {
                 alert(err)

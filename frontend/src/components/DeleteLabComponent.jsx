@@ -28,6 +28,9 @@ const DeleteLabComponent = ({ labId }) => {
         if (window.confirm(`Are you sure you want to delete ${lab ? lab.lie : ""}`)) {
             try {
                 await api.delete(`/api/lab-component/delete/${lab ? lab.id : ""}/`)
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 toast.error('Lab Component deleted successfully')
                 navigate(`/subject/${lab ? lab.subject : ""}`);
             } catch (err) {

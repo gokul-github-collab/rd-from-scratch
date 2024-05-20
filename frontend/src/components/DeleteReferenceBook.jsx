@@ -30,6 +30,9 @@ const DeleteReferenceBook = (rbId) => {
             try {
                 await api.delete(`/api/reference-book/delete/${rb ? rb.id : ""}/`)
                 toast.error('Reference Book deleted surbessfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/subject/${rb ? rb.subject : ""}`);
             } catch (err) {
                 alert(err)

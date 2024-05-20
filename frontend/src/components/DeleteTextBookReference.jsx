@@ -28,6 +28,9 @@ const DeleteTextBookReference = ({ tbId }) => {
             try {
                 await api.delete(`/api/text-book/delete/${tb ? tb.id : ""}/`)
                 toast.error('Text Book deleted sutbessfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/subject/${tb ? tb.subject : ""}`);
             } catch (err) {
                 alert(err)

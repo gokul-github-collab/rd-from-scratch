@@ -62,12 +62,32 @@ const AddCourseObjective = () => {
 
         api.post(`/api/course-objective/`, createCourseObjective)
             .then((res) => {
-                toast.success('Online Reference created successfully');
+                toast.success('Course Objective created successfully');
                 navigate(`/subject/${id}`);
             })
             .catch((err) => toast.error(err));
     };
+    const handleSaveAndAnother = (e) => {
+        e.preventDefault();
+        const createCourseObjective = {
+            sno,
+            name,
+            subject: oneSubject ? oneSubject.id : '',
+        };
 
+        api.post(`/api/course-objective/`, createCourseObjective)
+            .then((res) => {
+                toast.success('Course Objective created successfully');
+                // Clear form fields
+                setSno('');
+                setName('');
+                // Optionally, you can reset the subject as well
+                // setSubject('');
+                // You may also refetch the subject if needed
+                // getSubject(id);
+            })
+            .catch((err) => toast.error(err));
+    };
 
 
     return (
@@ -156,6 +176,12 @@ const AddCourseObjective = () => {
                             Submit
                         </button>
                     </div>
+                    <button
+                                onClick={handleSaveAndAnother}
+                                className="mt-2 block w-full rounded-md bg-gray-300 px-3.5 py-2.5 text-center text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                            >
+                                Save and Another
+                            </button>
                 </form>
             </div> : <NotFound />}
 

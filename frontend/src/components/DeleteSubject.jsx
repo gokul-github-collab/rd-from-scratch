@@ -28,6 +28,9 @@ const DeleteSubject = ({ subId }) => {
             try {
                 await api.delete(`/api/subject/delete/${sub ? sub.id : ""}/`)
                 toast.error('Subject deleted successfully')
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 navigate(`/syllabus/${sub ? sub.syllabus : ""}`);
             } catch (err) {
                 alert(err)

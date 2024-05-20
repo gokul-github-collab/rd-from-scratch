@@ -25,6 +25,9 @@ const DeleteCourseObjective = ({ cobId }) => {
         if (window.confirm(`Are you sure you want to delete ${cob ? cob.title : ""}`)) {
             try {
                 await api.delete(`/api/course-objective/delete/${cob ? cob.id : ""}/`)
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 1500)
                 toast.error('Course Objective deleted successfully')
                 navigate(`/subject/${cob ? cob.subject : ""}`);
             } catch (err) {
