@@ -286,3 +286,7 @@ class TORPChoiceAPIView(APIView):
         choices = Subject._meta.get_field('t_or_p').choices
         serialized_choices = [{'value': choice[0], 'display': choice[1]} for choice in choices]
         return response.Response(serialized_choices)
+    
+# class UAPAPChoiceAPIView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         choices =

@@ -20,6 +20,16 @@ const AddCourseOutcome = () => {
         const [description, setDescription] = useState('')
         const [uap, setUap] = useState("")
         const [subject, setSubject] = useState(oneSubject? oneSubject.id: "")
+        const [choices1] = useState([
+          { label: "U", value: "U" },
+          { label: "AP", value: "AP" },
+
+      ]);
+      const [choices2] = useState([
+
+        { label: "AN", value: "AN" },
+        { label: "AP", value: "AP" }
+    ]);
         
         useEffect(() => {
             if(id){
@@ -116,21 +126,49 @@ const AddCourseOutcome = () => {
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+         {oneSubject && oneSubject.t_or_p === "Theory" ? (<div className="sm:col-span-2">
             <label htmlFor="uap" className="block text-sm font-semibold leading-6 text-gray-900">
               CO - U / AP
             </label>
             <div className="mt-2.5">
-              <input
-                type="text"
-                name="uap"
-                id="uap"
-                value={uap}
-                onChange={(e) => setUap(e.target.value)}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
+                                    <select
+                                        name="uap"
+                                        id="uap"
+                                        value={uap}
+                                        onChange={(e) => setUap(e.target.value)}
+                                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    >
+                                        <option value="" disabled>Select an option</option>
+                                        {choices1.map((choice) => (
+                                            <option key={choice.value} value={choice.value}>
+                                                {choice.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+          </div>): 
+          (<div className="sm:col-span-2">
+          <label htmlFor="uap" className="block text-sm font-semibold leading-6 text-gray-900">
+            CO - AN / AP
+          </label>
+          <div className="mt-2.5">
+                                  <select
+                                      name="uap"
+                                      id="uap"
+                                      value={uap}
+                                      onChange={(e) => setUap(e.target.value)}
+                                      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  >
+                                      <option value="" disabled>Select an option</option>
+                                      {choices2.map((choice) => (
+                                          <option key={choice.value} value={choice.value}>
+                                              {choice.label}
+                                          </option>
+                                      ))}
+                                  </select>
+                              </div>
+        </div>)
+          }
 
           <div className="sm:col-span-2">
             <label htmlFor="subject" className="block text-sm font-semibold leading-6 text-gray-900">
