@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteSyllabus = ({sylId}) => {
+const DeleteSyllabus = ({ sylId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(sylId)

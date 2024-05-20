@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteSubject = ({subId}) => {
+const DeleteSubject = ({ subId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(subId)

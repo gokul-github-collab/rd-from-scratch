@@ -254,28 +254,28 @@ const SubjectDetailPDF = ({ sid }) => {
 
             {subject && (subject.t_or_p === "Practical" || subject.t_or_p === "Theory and Practical") && (
               <>
- <View style={styles.tableRow}>
-                            <View style={styles.tableCol}>
-                                <Text style={[styles.tableCell, styles.header]}>Lap Component</Text>
-                            </View>
-                        </View>
-                      
-                        {subject && subject.lab && subject.lab.map((lab, index) => (
-                            <View style={styles.tableRow} key={index}>
-                                <View style={styles.tableColSno}>
-                                    <Text style={styles.tableCell}>{lab.sno}</Text>
-                                </View>
-                                <View style={styles.tableCol}>
-                                    <Text style={styles.tableCell}>{lab.lie}</Text>
-                                </View>
-                                <View style={styles.tableColSno}>
-                                    <Text style={styles.tableCell}>{lab.co_mapping}</Text>
-                                </View>
-                                <View style={styles.tableColSno}>
-                                    <Text style={styles.tableCell}>{lab.rbt}</Text>
-                                </View>
-                            </View>
-                        ))}
+                <View style={styles.tableRow}>
+                  <View style={styles.tableCol}>
+                    <Text style={[styles.tableCell, styles.header]}>Lap Component</Text>
+                  </View>
+                </View>
+
+                {subject && subject.lab && subject.lab.map((lab, index) => (
+                  <View style={styles.tableRow} key={index}>
+                    <View style={styles.tableColSno}>
+                      <Text style={styles.tableCell}>{lab.sno}</Text>
+                    </View>
+                    <View style={styles.tableCol}>
+                      <Text style={styles.tableCell}>{lab.lie}</Text>
+                    </View>
+                    <View style={styles.tableColSno}>
+                      <Text style={styles.tableCell}>{lab.co_mapping}</Text>
+                    </View>
+                    <View style={styles.tableColSno}>
+                      <Text style={styles.tableCell}>{lab.rbt}</Text>
+                    </View>
+                  </View>
+                ))}
 
 
 
@@ -301,7 +301,7 @@ const SubjectDetailPDF = ({ sid }) => {
                   <Text style={styles.tableCell}>{tb.name}</Text>
                 </View>
               </View>
-            ))} 
+            ))}
 
             {/*  */}
             <View style={styles.tableRow}>

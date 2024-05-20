@@ -120,7 +120,7 @@ const EditTextBookReference = () => {
                         </div>
                         <div className="sm:col-span-2">
                             <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">
-                               Name
+                                Name
                             </label>
                             <div className="mt-2.5">
                                 <input

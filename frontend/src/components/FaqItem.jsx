@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FAQItem = ({  answers }) => {
+const FAQItem = ({ answers }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {

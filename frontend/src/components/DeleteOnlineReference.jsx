@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteOnlineReference = ({orefId}) => {
+const DeleteOnlineReference = ({ orefId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(orefId)

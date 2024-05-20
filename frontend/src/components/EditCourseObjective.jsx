@@ -58,7 +58,7 @@ const EditCourseObjective = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const editCourseObjectives = {
-            sno, 
+            sno,
             name,
             subject
 
@@ -150,7 +150,7 @@ const EditCourseObjective = () => {
                             </div>
                         </div>
 
-                
+
                     </div>
                     <div className="mt-10">
                         <button

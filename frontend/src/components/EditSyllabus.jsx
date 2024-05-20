@@ -32,7 +32,7 @@ const EditSyllabus = () => {
 
         setYear(res.data.year)
         setCourse(res.data.course)
-       
+
 
 
 
@@ -57,7 +57,7 @@ const EditSyllabus = () => {
     const editSyllabus = {
       year,
       course,
-      
+
     };
 
     api.put(`/api/syllabus/${id}/`, editSyllabus)
@@ -130,7 +130,7 @@ const EditSyllabus = () => {
                 />
               </div>
             </div>
-           
+
 
           </div>
           <div className="mt-10">

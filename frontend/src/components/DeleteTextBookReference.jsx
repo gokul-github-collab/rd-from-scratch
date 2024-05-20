@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteTextBookReference = ({tbId}) => {
+const DeleteTextBookReference = ({ tbId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(tbId)

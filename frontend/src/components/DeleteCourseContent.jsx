@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteCourseContent = ({ccId}) => {
+const DeleteCourseContent = ({ ccId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(ccId)

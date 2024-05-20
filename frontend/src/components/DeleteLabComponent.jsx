@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteLabComponent = ({labId}) => {
+const DeleteLabComponent = ({ labId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(labId)

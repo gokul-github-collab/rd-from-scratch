@@ -104,7 +104,7 @@ const EditCourseContent = () => {
                 </div>
                 <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                    <div className="sm:col-span-2">
+                        <div className="sm:col-span-2">
                             <label htmlFor="module" className="block text-sm font-semibold leading-6 text-gray-900">
                                 CC Module
                             </label>

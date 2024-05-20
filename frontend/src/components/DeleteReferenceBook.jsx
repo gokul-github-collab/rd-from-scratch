@@ -8,7 +8,7 @@ const DeleteReferenceBook = (rbId) => {
 
 
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         getCo(rbId.rbId)
     }, [rbId])

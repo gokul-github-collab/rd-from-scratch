@@ -32,7 +32,7 @@ const DeletePso = ({ id }) => {
             }
         }
     };
-    
+
     return (
         <>
             <button

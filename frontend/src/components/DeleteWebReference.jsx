@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-const DeleteWebReference = ({wrId}) => {
+const DeleteWebReference = ({ wrId }) => {
     const navigate = useNavigate()
     useEffect(() => {
         getCo(wrId)
