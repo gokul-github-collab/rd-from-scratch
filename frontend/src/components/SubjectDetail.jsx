@@ -47,7 +47,8 @@ export default function SubjectDetail() {
 
 
   const [subject, setSubject] = useState(null)
-
+const [syllabus, setSyllabus] = useState(null)
+const [semester, setSemester] = useState(null)
 
   const [isSuperuser, setIsSuperuser] = useState(false)
 
@@ -73,7 +74,18 @@ export default function SubjectDetail() {
 
   const getSubject = (id) => {
     api.get(`/api/subject/${id}/`).
-      then((res) => setSubject(res.data)).
+      then((res) =>{ setSubject(res.data); getSemester(res.data.semester)}).
+      catch(err => toast.error(err))
+  }
+  const getSemester = (id) => {
+    api.get(`/api/semester/${id}/`).
+      then((res) =>{ setSemester(res.data); getSyllabus(res.data.syllabus)}).
+      catch(err => toast.error(err))
+  }
+
+  const getSyllabus = (id) => {
+    api.get(`/api/syllabus/${id}/`).
+      then((res) => setSyllabus(res.data)).
       catch(err => toast.error(err))
   }
   return (
@@ -113,6 +125,14 @@ export default function SubjectDetail() {
                 <div className="mt-2 flex items-center text-sm text-gray-500">
                   <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
                   Subject Type: {subject ? subject.t_or_p : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Semester: {subject ? subject.semester : ""}
+                </div>
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  Syllabus Year: {syllabus ? syllabus.year : ""}
                 </div>
               </div>
             </div>
