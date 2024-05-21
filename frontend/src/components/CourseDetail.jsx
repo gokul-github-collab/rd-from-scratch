@@ -264,11 +264,11 @@ const CourseDetail = () => {
             <aside>
               <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold mb-6">College Info</h3>
-                <h2 className="text-2xl">Sri Krishna Arts and Science College</h2>
-                <p className="my-2">something something</p>
+                <h2 className="text-2xl">Sri Krishna Adithya College of Arts and Science</h2>
+                {/* <p className="my-2">something something</p> */}
                 <hr className="my-4" />
                 <h3 className="text-xl">Contact Email:</h3>
-                <p className="my-2 bg-indigo-100 p-2 font-bold">skasc.ac.in</p>
+                <p className="my-2 bg-indigo-100 p-2 font-bold">contact@skacas.ac.in</p>
                 <h3 className="text-xl">Contact Phone:</h3>
                 <p className="my-2 bg-indigo-100 p-2 font-bold">5555-5555-5555</p>
               </div>

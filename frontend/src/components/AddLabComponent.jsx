@@ -34,7 +34,7 @@ const AddLabComponent = () => {
             .then((res) => {
                 setCom(res.data);
                 const titlesArray = res.data.map((co) => co.title);
-                const uapsArray = res.data.map((co) => co.uap);
+                const uapsArray = [...new Set(res.data.map((co) => co.uap))]; 
                 setTitles(titlesArray);
                 setUaps(uapsArray);
             })

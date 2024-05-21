@@ -47,10 +47,10 @@ const HomePage = () => {
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Discover SKASC's programs
+            Discover SKACAS's programs
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-            Discover our diverse programs tailored for your success at SKASC
+            Discover our diverse programs tailored for your success at SKACAS
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
