@@ -64,8 +64,7 @@ class CourseObjectives(models.Model):
 class CourseOutcome(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=100)
-    uap = models.CharField(max_length=100, 
-          choices=(("U", "Understanding"), ("AP", "Applying"), ( "AN","Analyzing"), ("R", "Remembering"), ( "C","Creating"), ( "E", "Evaluating")))
+    uap = models.CharField(max_length=100, choices=(("U", "Understanding"), ("AP", "Applying"), ( "AN","Analyzing"), ("R", "Remembering"), ( "C","Creating"), ( "E", "Evaluating")))
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="co")
     def __str__(self) -> str:
         return self.title 

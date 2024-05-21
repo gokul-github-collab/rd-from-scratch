@@ -1,33 +1,45 @@
-import React from 'react'
-import { toast } from 'react-toastify'
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import api from '../api'
-import NotFound from '../pages/NotFound'
-import ForbiddenPage from '../pages/ForbiddenPage'
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useParams, useNavigate } from 'react-router-dom';
+import api from '../api';
+import NotFound from '../pages/NotFound';
+import ForbiddenPage from '../pages/ForbiddenPage';
 
 const AddLabComponent = () => {
+    const navigate = useNavigate();
+    const { id } = useParams();
 
-
-    const navigate = useNavigate()
-    const { id } = useParams()
-
-    const [oneSubject, setOneSubject] = useState(null)
-
-    const [isSuperUser, setIsSuperuser] = useState(false)
-
-    const [lie, setLie] = useState('')
-    const [co_mapping, setCoMapping] = useState('')
-    const [rbt, setRbt] = useState('')
-    const [subject, setSubject] = useState(oneSubject ? oneSubject.id : "")
+    const [oneSubject, setOneSubject] = useState(null);
+    const [isSuperUser, setIsSuperuser] = useState(false);
+    const [lie, setLie] = useState('');
+    const [co_mapping, setCoMapping] = useState('');
+    const [rbt, setRbt] = useState('');
+    const [subject, setSubject] = useState('');
+    const [com, setCom] = useState([]);
+    const [titles, setTitles] = useState([]);
+    const [uaps, setUaps] = useState([]);
+    const [selectedTitle, setSelectedTitle] = useState('');
+    const [selectedUap, setSelectedUap] = useState('');
 
     useEffect(() => {
         if (id) {
-            getSubject(id)
-            checkSuperuser()
+            getSubject(id);
+            checkSuperuser();
+            getCom(id);
         }
-    }, [id])
+    }, [id]);
+
+    const getCom = (id) => {
+        api.get(`/api/filter-course-outcome/${id}/`)
+            .then((res) => {
+                setCom(res.data);
+                const titlesArray = res.data.map((co) => co.title);
+                const uapsArray = res.data.map((co) => co.uap);
+                setTitles(titlesArray);
+                setUaps(uapsArray);
+            })
+            .catch((err) => toast.error(err));
+    };
 
     const checkSuperuser = () => {
         api.get("/api/check_superuser/")
@@ -40,28 +52,24 @@ const AddLabComponent = () => {
             });
     };
 
-
     const getSubject = (subjectId) => {
-        api.get(`/api/subject/${subjectId}/`).
-            then((res) => {
-                const subjectData = res.data
+        api.get(`/api/subject/${subjectId}/`)
+            .then((res) => {
+                const subjectData = res.data;
                 setOneSubject(subjectData);
-
-                console.log(subjectData.id)
-
-            }).catch((err) => toast.error(err))
-    }
-
+                setSubject(subjectData.id);
+                console.log(subjectData.id);
+            })
+            .catch((err) => toast.error(err));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const createLabComponent = {
-
             lie,
-            co_mapping,
-            rbt,
-            subject: oneSubject ? oneSubject.id : ""
-
+            co_mapping: selectedTitle,
+            rbt: selectedUap,
+            subject: oneSubject ? oneSubject.id : "",
         };
 
         api.post(`/api/lab-component/`, createLabComponent)
@@ -72,30 +80,31 @@ const AddLabComponent = () => {
             .catch((err) => toast.error(err));
     };
 
-
     const handleSaveAndAnother = (e) => {
         e.preventDefault();
         const createCourseObjective = {
-
             lie,
-            co_mapping,
-            rbt,
+            co_mapping: selectedTitle,
+            rbt: selectedUap,
             subject: oneSubject ? oneSubject.id : '',
         };
 
         api.post(`/api/lab-component/`, createCourseObjective)
             .then((res) => {
                 toast.success('Lab Component created successfully');
-                // Clear form fields
                 setLie('');
                 setCoMapping('');
                 setRbt('');
-                // Optionally, you can reset the subject as well
-                // setSubject('');
-                // You may also refetch the subject if needed
-                // getSubject(id);
             })
             .catch((err) => toast.error(err));
+    };
+
+    const handleTitleChange = (event) => {
+        setSelectedTitle(event.target.value);
+    };
+
+    const handleUapChange = (event) => {
+        setSelectedUap(event.target.value);
     };
 
     return (
@@ -147,14 +156,17 @@ const AddLabComponent = () => {
                                 CO Mapping
                             </label>
                             <div className="mt-2.5">
-                                <input
-                                    type="text"
-                                    name="co_mapping"
-                                    id="co_mapping"
-                                    value={co_mapping}
-                                    onChange={(e) => setCoMapping(e.target.value)}
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
+                                <select value={selectedTitle} onChange={handleTitleChange}
+                                    className='block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                >
+                                    <option value="">Select a title</option>
+                                    {titles.map((title, index) => (
+                                        <option key={index} value={title}>{title}</option>
+                                    ))}
+                                </select>
+
+
+
                             </div>
                         </div>
 
@@ -163,14 +175,17 @@ const AddLabComponent = () => {
                                 RBT
                             </label>
                             <div className="mt-2.5">
-                                <input
-                                    type="text"
-                                    name="rbt"
-                                    id="rbt"
-                                    value={rbt}
-                                    onChange={(e) => setRbt(e.target.value)}
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
+                                <select value={selectedUap} onChange={handleUapChange}
+                                    className='block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                >
+                                    <option value="">Select a RBT</option>
+                                    {uaps.map((uap, index) => (
+                                        <option key={index} value={uap}>{uap}</option>
+                                    ))}
+                                </select>
+
+
+
                             </div>
                         </div>
 
