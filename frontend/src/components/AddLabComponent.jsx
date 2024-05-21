@@ -56,7 +56,7 @@ const AddLabComponent = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const createLabComponent = {
-     
+
             lie,
             co_mapping,
             rbt,
@@ -76,8 +76,10 @@ const AddLabComponent = () => {
     const handleSaveAndAnother = (e) => {
         e.preventDefault();
         const createCourseObjective = {
-            sno,
-            name,
+
+            lie,
+            co_mapping,
+            rbt,
             subject: oneSubject ? oneSubject.id : '',
         };
 
@@ -196,6 +198,15 @@ const AddLabComponent = () => {
                             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Submit
+                        </button>
+                    </div>
+
+                    <div className="mt-10">
+                        <button
+                            type="submit" onClick={handleSaveAndAnother}
+                            className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                        >
+                            Save and Another
                         </button>
                     </div>
                 </form>
