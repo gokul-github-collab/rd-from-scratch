@@ -142,7 +142,7 @@ const SubjectDetailPDF = ({ sid }) => {
 
   return (
     <Document>
-      <Page style={styles.body} wrap={contentHeight > 720 ? true : false}>
+      <Page style={styles.body}>
         <View id='content'>
           <Text style={[styles.tableCell, { textTransform: 'uppercase', fontSize: 8 }]}>
             REGULATION {course ? course.name : ""}
@@ -185,7 +185,7 @@ const SubjectDetailPDF = ({ sid }) => {
             {subject && subject.cob && subject.cob.map((cob, index) => (
               <View style={styles.tableRow} key={index}>
                 <View style={styles.tableColSno}>
-                  <Text style={styles.tableCell}>{cob.sno}</Text>
+                  <Text style={styles.tableCell}>{index + 1}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{cob.name}</Text>
@@ -233,7 +233,7 @@ const SubjectDetailPDF = ({ sid }) => {
                     <View style={styles.tableRow}>
                       <View style={styles.tableCol}>
                         <Text style={[styles.tableCell, styles.moduleHeader]}>
-                          Module {cc.module}: {cc.title} - {cc.hrs_pw} Hrs
+                          Module {index + 1}: {cc.title} - {cc.hrs_pw} Hrs
                         </Text>
                       </View>
                     </View>
@@ -263,7 +263,7 @@ const SubjectDetailPDF = ({ sid }) => {
                 {subject && subject.lab && subject.lab.map((lab, index) => (
                   <View style={styles.tableRow} key={index}>
                     <View style={styles.tableColSno}>
-                      <Text style={styles.tableCell}>{lab.sno}</Text>
+                      <Text style={styles.tableCell}>{index + 1}</Text>
                     </View>
                     <View style={styles.tableCol}>
                       <Text style={styles.tableCell}>{lab.lie}</Text>
@@ -295,7 +295,7 @@ const SubjectDetailPDF = ({ sid }) => {
             {subject && subject.tb && subject.tb.map((tb, index) => (
               <View style={styles.tableRow} key={index}>
                 <View style={styles.tableColSno}>
-                  <Text style={styles.tableCell}>{tb.sno}</Text>
+                  <Text style={styles.tableCell}>{index + 1}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{tb.name}</Text>
@@ -312,7 +312,7 @@ const SubjectDetailPDF = ({ sid }) => {
             {subject && subject.rb && subject.rb.map((rb, index) => (
               <View style={styles.tableRow} key={index}>
                 <View style={styles.tableColSno}>
-                  <Text style={styles.tableCell}>{rb.sno}</Text>
+                  <Text style={styles.tableCell}>{index+1}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{rb.name}</Text>
@@ -327,9 +327,9 @@ const SubjectDetailPDF = ({ sid }) => {
               </View>
             </View>
             {subject && subject.wr && subject.wr.map((wr, index) => (
-              <View style={styles.tableRow} key={index}>
+              <View style={styles.tableRow} key={index }>
                 <View style={styles.tableColSno}>
-                  <Text style={styles.tableCell}>{wr.sno}</Text>
+                  <Text style={styles.tableCell}>{index+ 1}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{wr.url}</Text>
@@ -346,7 +346,7 @@ const SubjectDetailPDF = ({ sid }) => {
             {subject && subject.oref && subject.oref.map((oref, index) => (
               <View style={styles.tableRow} key={index}>
                 <View style={styles.tableColSno}>
-                  <Text style={styles.tableCell}>{oref.sno}</Text>
+                  <Text style={styles.tableCell}>{index + 1}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{oref.url}</Text>

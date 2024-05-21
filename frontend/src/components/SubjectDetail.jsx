@@ -220,9 +220,9 @@ export default function SubjectDetail() {
                 </thead>
                 <tbody>
 
-                  {subject && subject.cob && subject.cob.map((cob) => (
+                  {subject && subject.cob && subject.cob.map((cob, index) => (
                     <tr key={cob.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
-                      <td className="px-6 py-4  text-white">{cob.sno}</td>
+                      <td className="px-6 py-4  text-white">{index + 1}</td>
                       <td className="px-6 py-4  text-white">{cob.name}</td>
 
                       <td className="px-6 py-4  text-white">
@@ -278,7 +278,7 @@ export default function SubjectDetail() {
                 </thead>
                 <tbody>
 
-                  {subject && subject.co && subject.co.map((co) => (
+                  {subject && subject.co && subject.co.map((co, index) => (
                     <tr key={co.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
                       <td className="px-6 py-4  text-white">{co.title}</td>
                       <td className="px-6 py-4  text-white">{co.description}</td>
@@ -338,9 +338,9 @@ export default function SubjectDetail() {
                 </thead>
                 <tbody>
 
-                  {subject && subject.lab && subject.lab.map((lab) => (
+                  {subject && subject.lab && subject.lab.map((lab, index) => (
                     <tr key={lab.id} className=" border-b bg-gray-800 text-gray-400 border-gray-700">
-                      <td className="px-6 py-4  text-white">{lab.sno}</td>
+                      <td className="px-6 py-4  text-white">{index + 1}</td>
                       <td className="px-6 py-4  text-white">{lab.lie}</td>
                       <td className="px-6 py-4  text-white">{lab.co_mapping}</td>
                       <td className="px-6 py-4  text-white">{lab.rbt}</td>
@@ -403,12 +403,12 @@ export default function SubjectDetail() {
                     </tr>
                   </thead>
                   <tbody>
-                    {subject?.cc?.map((cc) => (
+                    {subject?.cc?.map((cc, index) => (
                       <tr
                         key={cc.id}
                         className=" border-b bg-gray-800 text-white border-gray-700"
                       >
-                        <td className="px-6 py-4">{cc.module}</td>
+                        <td className="px-6 py-4">{index + 1}</td>
                         <td className="py-4">{cc.title}</td>
                         <td className="w-1/2 py-4">{cc.description}
 
@@ -472,12 +472,12 @@ export default function SubjectDetail() {
                   </tr>
                 </thead>
                 <tbody>
-                  {subject?.tb?.map((tb) => (
+                  {subject?.tb?.map((tb, index) => (
                     <tr
                       key={tb.id}
                       className=" border-b bg-gray-800 text-white border-gray-700"
                     >
-                      <td className="px-6 py-4">{tb.sno}</td>
+                      <td className="px-6 py-4">{index + 1}</td>
                       <td className="py-4">{tb.name}</td>
 
                       {isSuperuser && (
@@ -540,13 +540,13 @@ export default function SubjectDetail() {
                   </tr>
                 </thead>
                 <tbody>
-                  {subject?.rb?.map((rb) => (
+                  {subject?.rb?.map((rb, index) => (
 
                     <tr
                       key={rb.id}
                       className=" border-b bg-gray-800 text-white border-gray-700"
                     >
-                      <td className="px-6 py-4">{rb.sno}</td>
+                      <td className="px-6 py-4">{index + 1}</td>
                       <td className="py-4">{rb.name}</td>
 
                       {isSuperuser && (
@@ -609,12 +609,12 @@ export default function SubjectDetail() {
                   </tr>
                 </thead>
                 <tbody>
-                  {subject?.wr?.map((wr) => (
+                  {subject?.wr?.map((wr, index) => (
                     <tr
                       key={wr.id}
                       className=" border-b bg-gray-800 text-white border-gray-700"
                     >
-                      <td className="px-6 py-4">{wr.sno}</td>
+                      <td className="px-6 py-4">{index + 1}</td>
                       <td className="py-4">{wr.url}</td>
 
                       {isSuperuser && (
@@ -677,12 +677,12 @@ export default function SubjectDetail() {
                   </tr>
                 </thead>
                 <tbody>
-                  {subject?.oref?.map((oref) => (
+                  {subject?.oref?.map((oref, index ) => (
                     <tr
                       key={oref.id}
                       className=" border-b bg-gray-800 text-white border-gray-700"
                     >
-                      <td className="px-6 py-4">{oref.sno}</td>
+                      <td className="px-6 py-4">{index + 1}</td>
                       <td className="py-4">{oref.url}</td>
 
                       {isSuperuser && (

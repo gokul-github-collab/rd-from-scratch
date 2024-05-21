@@ -81,6 +81,30 @@ const AddCourseOutcome = () => {
   };
 
 
+  const handleSaveAndAnother = (e) => {
+    e.preventDefault()
+    const createTextBook = {
+      title,
+      description,
+      uap,
+      subject: oneSubject ? oneSubject.id : ""
+    }
+
+    api.post(`/api/course-outcome/`, createTextBook)
+      .then((res) => {
+        toast.success('Course Outcome created successfully')
+        // Clear form fields
+        setTitle('')
+        setDescription("")
+        setUap("")
+        // Optionally, you can reset the subject as well
+        // setSubject('');
+        // You may also refetch the subject if needed
+        // getSubject(id);
+      })
+      .catch((err) => toast.error(err))
+  }
+
 
   return (
     <>
@@ -210,7 +234,17 @@ const AddCourseOutcome = () => {
             >
               Submit
             </button>
+
           </div>
+            <div className='mt-10'>
+
+            <button
+              type="submit" onClick={handleSaveAndAnother} 
+              className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+            >
+              Save and Another
+            </button>
+            </div>
         </form>
       </div> : <NotFound />}
 

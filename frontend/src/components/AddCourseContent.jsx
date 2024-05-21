@@ -18,7 +18,7 @@ const AddCourseContent = () => {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [module, setModule] = useState("")
+
   const [hrs_pw, setHrsPw] = useState("")
 
   const [subject, setSubject] = useState(oneSubject ? oneSubject.id : "")
@@ -57,7 +57,7 @@ const AddCourseContent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const createCourseContent = {
-      module,
+
       title,
       description,
       hrs_pw,
@@ -73,6 +73,30 @@ const AddCourseContent = () => {
       .catch((err) => toast.error(err));
   };
 
+
+  const handleSaveAndAnother = (e) => {
+    e.preventDefault()
+    const createTextBook = {
+      title,
+      description,
+      hrs_pw,
+      subject: oneSubject ? oneSubject.id : ""
+    }
+
+    api.post(`/api/course-content/`, createTextBook)
+      .then((res) => {
+        toast.success('Course Content created successfully')
+        // Clear form fields
+        setTitle('')
+        setDescription("")
+        setHrsPw("")
+        // Optionally, you can reset the subject as well
+        // setSubject('');
+        // You may also refetch the subject if needed
+        // getSubject(id);
+      })
+      .catch((err) => toast.error(err))
+  }
 
 
   return (
@@ -103,21 +127,6 @@ const AddCourseContent = () => {
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
 
 
-            <div className="sm:col-span-2">
-              <label htmlFor="module" className="block text-sm font-semibold leading-6 text-gray-900">
-                Module:
-              </label>
-              <div className="mt-2.5">
-                <input
-                  type="text"
-                  name="module"
-                  id="module"
-                  value={module}
-                  onChange={(e) => setModule(e.target.value)}
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
             <div className="sm:col-span-2">
               <label htmlFor="title" className="block text-sm font-semibold leading-6 text-gray-900">
                 CC Title
@@ -189,6 +198,14 @@ const AddCourseContent = () => {
               className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Submit
+            </button>
+          </div>
+          <div className="mt-10">
+            <button 
+              type="submit" onClick={handleSaveAndAnother}
+              className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+            >
+              Save and Another
             </button>
           </div>
         </form>

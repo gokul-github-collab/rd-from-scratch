@@ -54,7 +54,7 @@ class Subject(models.Model):
         return self.name + " - " + self.semester.title + " - " + self.semester.syllabus.year
 
 class CourseObjectives(models.Model):
-    sno = models.CharField(max_length=100)
+
     name = models.CharField(max_length=300)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="cob")
 
@@ -62,7 +62,7 @@ class CourseObjectives(models.Model):
         return self.name + " - " + self.subject.name
 
 class CourseOutcome(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
     description = models.CharField(max_length=100)
     uap = models.CharField(max_length=100, choices=(("U", "U"), ("AP", "AP"), ("AN", "AN")))
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="co")
@@ -70,7 +70,7 @@ class CourseOutcome(models.Model):
         return self.title 
     
 class LabComponent(models.Model):
-    sno = models.CharField(max_length=100)
+
     lie = models.CharField(max_length=400)
     co_mapping = models.CharField(max_length=100)
     rbt = models.CharField(max_length=100)
@@ -80,7 +80,7 @@ class LabComponent(models.Model):
         return self.lie[:20] + " - " + self.subject.name
     
 class CourseContent(models.Model):
-    module = models.CharField(max_length=100)
+
     title = models.CharField(max_length=100)
     description = models.TextField()
     hrs_pw = models.IntegerField()
@@ -91,7 +91,7 @@ class CourseContent(models.Model):
         return self.title + " - " + self.subject.name
     
 class TextBook(models.Model):
-    sno = models.CharField(max_length=100)
+
     name = models.CharField(max_length=300)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="tb")
 
@@ -99,7 +99,7 @@ class TextBook(models.Model):
         return self.name + " - " + self.subject.name
     
 class ReferenceBook(models.Model):
-    sno = models.CharField(max_length=100)
+
     name = models.CharField(max_length=300)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="rb")
     
@@ -107,7 +107,6 @@ class ReferenceBook(models.Model):
         return self.name + " - " + self.subject.name
     
 class WebReference(models.Model):
-    sno = models.CharField(max_length=100)
     url = models.URLField(max_length=300)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="wr")
     
@@ -115,7 +114,7 @@ class WebReference(models.Model):
         return self.url + " - " + self.subject.name
     
 class OnlineReference(models.Model):
-    sno = models.CharField(max_length=100)
+
     url = models.URLField(max_length=300)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="oref")
     

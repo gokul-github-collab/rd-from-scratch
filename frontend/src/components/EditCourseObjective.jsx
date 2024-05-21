@@ -15,7 +15,7 @@ const EditCourseObjective = () => {
 
     const [isSuperUser, setIsSuperuser] = useState(false)
 
-    const [sno, setSno] = useState('')
+  
     const [name, setName] = useState('')
 
     const [subject, setSubject] = useState("")
@@ -44,8 +44,6 @@ const EditCourseObjective = () => {
             then((res) => {
 
                 setCob(res.data)
-
-                setSno(res.data.sno)
                 setName(res.data.name)
                 setSubject(res.data.subject)
 
@@ -58,7 +56,7 @@ const EditCourseObjective = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const editCourseObjectives = {
-            sno,
+           
             name,
             subject
 
@@ -103,21 +101,7 @@ const EditCourseObjective = () => {
 
 
 
-                        <div className="sm:col-span-2">
-                            <label htmlFor="sno" className="block text-sm font-semibold leading-6 text-gray-900">
-                                CO Sno
-                            </label>
-                            <div className="mt-2.5">
-                                <input
-                                    type="text"
-                                    name="sno"
-                                    id="sno"
-                                    value={sno ? sno : ""}
-                                    onChange={(e) => setSno(e.target.value)}
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
+                     
                         <div className="sm:col-span-2">
                             <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">
                                 Description

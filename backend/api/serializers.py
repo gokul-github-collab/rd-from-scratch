@@ -29,37 +29,37 @@ class CourseOutcomeSerializer(serializers.ModelSerializer):
 class CourseContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseContent
-        fields = ("id", "module", "title", "description", "hrs_pw", "subject")
+        fields = ("id",  "title", "description", "hrs_pw", "subject")
 
 class TextBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = TextBook
-        fields = ("id", "sno", "name", "subject")
+        fields = ("id", "name", "subject")
 
 class ReferenceBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReferenceBook
-        fields = ("id", "sno", "name", "subject")
+        fields = ("id", "name", "subject")
 
 class WebReferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WebReference
-        fields = ("id", "sno", "url", "subject")
+        fields = ("id", "url", "subject")
 
 class OnlineReferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = OnlineReference
-        fields = ("id", "sno", "url", "subject")
+        fields = ("id", "url", "subject")
 
 class CourseObjectivesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseObjectives
-        fields = ("id", "sno", "name", "subject")
+        fields = ("id", "name", "subject")
 
 class LabComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = LabComponent
-        fields =  ("id", "sno", "lie", "co_mapping", "rbt", "subject")
+        fields =  ("id", "lie", "co_mapping", "rbt", "subject")
 
 class SubjectSerializer(serializers.ModelSerializer):
     cob = CourseObjectivesSerializer(many=True, read_only=True)
