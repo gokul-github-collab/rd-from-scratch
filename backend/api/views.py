@@ -8,7 +8,7 @@ from rest_framework import response
 from .models import Note, Course, Po, Pso, Semester, Subject, Syllabus, CourseOutcome, CourseContent, TextBook, ReferenceBook, WebReference, OnlineReference, CourseObjectives, LabComponent
 from rest_framework import status
 from rest_framework.views import APIView
-
+from rest_framework import serializers
 class CheckSuperUser(APIView):
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -137,7 +137,12 @@ class SubjectListView(generics.ListCreateAPIView):
     serializer_class = SubjectSerializer
     permission_classes = [AllowAny]
 
-
+    def perform_create(self, serializer):
+        external_mark = self.request.data.get('external_mark', 0)
+        internal_mark = self.request.data.get('internal_mark', 0)
+        if int(external_mark) + int(internal_mark) > 100:
+            raise serializers.ValidationError('The combined value of external and internal marks cannot exceed 100.')
+        serializer.save()
 class SubjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
@@ -303,6 +308,14 @@ class TORPChoiceAPIView(APIView):
         serialized_choices = [{'value': choice[0], 'display': choice[1]} for choice in choices]
         return response.Response(serialized_choices)
     
-# class UAPAPChoiceAPIView(APIView):
-#     def get(self, request, *args, **kwargs):
-#         choices =
+class FilterCourseOutcome(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            sub = Subject.objects.get(pk=pk)
+        except Subject.DoesNotExist:
+            return response.Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        co = CourseOutcome.objects.filter(subject=sub)
+        serializer = CourseOutcomeSerializer(co, many=True)
+        return response.Response(serializer.data, status=status.HTTP_200_OK)

@@ -45,6 +45,29 @@ const AddSubject = () => {
       });
   };
 
+  const handleExternalMark = (e) => {
+    const value = e.target.value
+
+    
+    setExternalMark(value)
+
+
+    if(!isNaN(value)){
+      if(value >= 0 && value <= 100){
+      setInternalMark(100-parseInt(value))}
+    }
+  }
+  const handleInternalMark = (e) => {
+    const value = e.target.value
+    setInternalMark(value)
+    if(!isNaN(value)){
+      if(value >= 0 && value <= 100){
+      setExternalMark(100-parseInt(value))}
+    }
+  }
+  const isInvalidMark = (mark) => {
+    return isNaN(mark) || mark < 0 || mark > 100;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const createSubject = {
@@ -119,6 +142,7 @@ const AddSubject = () => {
                     name="course_code"
                     id="course_code"
                     value={course_code}
+                   
                     onChange={(e) => setCourseCode(e.target.value)}
                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -170,21 +194,6 @@ const AddSubject = () => {
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="external_mark" className="block text-sm font-semibold leading-6 text-gray-900">
-                  External Mark
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    name="external_mark"
-                    id="external_mark"
-                    value={external_mark}
-                    onChange={(e) => setExternalMark(e.target.value)}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
                 <label htmlFor="internal_mark" className="block text-sm font-semibold leading-6 text-gray-900">
                   Internal Mark
                 </label>
@@ -194,11 +203,36 @@ const AddSubject = () => {
                     name="internal_mark"
                     id="internal_mark"
                     value={internal_mark}
-                    onChange={(e) => setInternalMark(e.target.value)}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
+                    onChange={handleInternalMark}
+                    className={`block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6
+                    ${
+                      isInvalidMark(internal_mark)
+                        ? "focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                        : ""
+                    }`}                  />
                 </div>
               </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="external_mark" className="block text-sm font-semibold leading-6 text-gray-900">
+                  External Mark
+                </label>
+                <div className="mt-2.5">
+                  <input
+                    type="text"
+                    name="external_mark"
+                    id="external_mark"
+                    
+                    value={external_mark}
+                    onChange={handleExternalMark}
+                    className={`block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6
+                    ${
+                      isInvalidMark(external_mark)
+                        ? "focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                        : ""
+                    }`}                  />
+                </div>
+              </div>
+              
               <div className="sm:col-span-2">
                 <label htmlFor="t_or_p" className="block text-sm font-semibold leading-6 text-gray-900">
                   Theory or Practical

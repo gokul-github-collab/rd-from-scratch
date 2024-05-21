@@ -45,6 +45,7 @@ urlpatterns = [
     path("course-outcome/", views.CourseOutcomeListView.as_view(), name='course-outcome-list'),
     path("course-outcome/<int:pk>/", views.CourseOutcomeDetailView.as_view(), name='course-outcome-detail'),
     path("course-outcome/delete/<int:pk>/", views.CourseOutcomeDeleteView.as_view(), name='course-outcome-delete'),
+    path("filter-course-outcome/<int:pk>/", views.FilterCourseOutcome.as_view(), name='subject-co-filter'),
 
 
     path("course-content/", views.CourseContentListView.as_view(), name='course-content-list'),

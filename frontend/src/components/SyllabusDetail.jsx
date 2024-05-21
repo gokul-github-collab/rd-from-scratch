@@ -114,30 +114,29 @@ const SyllabusDetail = () => {
                     <p className="text-base font-semibold leading-7 text-indigo-600"> {syllabus ? syllabus.year : ""}</p>
                     <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Syllabus for {course ? course.name : ""}</h1>
                     <p className="mt-6 text-xl leading-8 text-gray-700">
-                      Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam
-                      eget aliquam. Quisque id at vitae feugiat egestas.
+                      Right from the inception, the curriculum is taught by distinguished faculty members combining academic excellence and real-world experience with dedication and commitment. The department scales with innovatively designed programs which constantly get updated to meet the challenging requirement of the industry and stakeholders. We are proud to see many industries coming back to our department, which sustain to meet the dynamic corporate world.
                     </p>
                   </div>
                 </div>
               </div>
               <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-                <img
+                {/* <img
                   className="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
                   src={Ai1}
                   alt=""
-                />
+                /> */}
               </div>
               <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:pr-4">
                   <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
 
-{isSuperUser && 
-                    <Link
-                      to={`/add-semester/${syllabus ? syllabus.id : ""}/${course ? course.id : ""}`}
-                      className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-                    >
-                      Add Semester
-                    </Link>}
+                    {isSuperUser &&
+                      <Link
+                        to={`/add-semester/${syllabus ? syllabus.id : ""}/${course ? course.id : ""}`}
+                        className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
+                      >
+                        Add Semester
+                      </Link>}
                     {syllabus && syllabus.sem && syllabus.sem.map((sem) => (
                       <SemesterDetail key={sem.id} semId={sem.id} />
 

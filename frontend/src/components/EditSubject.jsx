@@ -25,8 +25,12 @@ const EditSubject = () => {
   const [prerequisite, setPrerequisite] = useState("")
   const [external_mark, setExternalMark] = useState("")
   const [internal_mark, setInternalMark] = useState("")
-
-
+  const [t_or_p, setTORP] = useState("Theory");
+  const [choices] = useState([
+    { label: "Theory", value: "Theory" },
+    { label: "Practical", value: "Practical" },
+    { label: "Theory and Practical", value: "Theory and Practical" }
+  ]);
   const getSubject = (id) => {
     api.get(`/api/subject/${id}/`).
       then((res) => {
@@ -40,7 +44,7 @@ const EditSubject = () => {
           setPrerequisite(sData.prerequisite)
           setExternalMark(sData.external_mark)
           setInternalMark(sData.internal_mark)
-
+          setTORP(sData.t_or_p)
         }
       })
   }
@@ -59,7 +63,7 @@ const EditSubject = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const updateSubject = {
-      name, course_code, semester, ltpc, prerequisite, external_mark, internal_mark
+      name, course_code, semester, ltpc, prerequisite, external_mark, internal_mark, t_or_p
     }
 
     api.put(`/api/subject/${id}/`, updateSubject).
@@ -209,7 +213,27 @@ const EditSubject = () => {
                   />
                 </div>
               </div>
-
+              <div className="sm:col-span-2">
+                <label htmlFor="t_or_p" className="block text-sm font-semibold leading-6 text-gray-900">
+                  Theory or Practical
+                </label>
+                <div className="mt-2.5">
+                  <select
+                    name="t_or_p"
+                    id="t_or_p"
+                    value={t_or_p}
+                    onChange={(e) => setTORP(e.target.value)}
+                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  >
+                    <option value="" disabled>Select an option</option>
+                    {choices.map((choice) => (
+                      <option key={choice.value} value={choice.value}>
+                        {choice.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
             <div className="mt-10">
               <button

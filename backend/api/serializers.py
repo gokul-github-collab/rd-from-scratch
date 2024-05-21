@@ -116,5 +116,5 @@ class CourseSerializer(serializers.ModelSerializer):
     syllabus = SyllabusSerializer(many=True, read_only=True)
     class Meta:
         model = Course
-        fields = ('id', 'name', 'type', 'description', 'location', 'tuition_fee', 'pos', 'psos', "syllabus")
+        fields = ('id', 'name', 'type', 'description', 'location', 'pos', 'psos', "syllabus")
 

@@ -16,7 +16,7 @@ class Course(models.Model):
     type = models.CharField(max_length=50)
     description = models.TextField()
     location = models.CharField(max_length=100)
-    tuition_fee = models.CharField(max_length=20)
+    # tuition_fee = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
@@ -64,7 +64,8 @@ class CourseObjectives(models.Model):
 class CourseOutcome(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=100)
-    uap = models.CharField(max_length=100, choices=(("U", "U"), ("AP", "AP"), ("AN", "AN")))
+    uap = models.CharField(max_length=100, 
+          choices=(("U", "Understanding"), ("AP", "Applying"), ( "AN","Analyzing"), ("R", "Remembering"), ( "C","Creating"), ( "E", "Evaluating")))
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="co")
     def __str__(self) -> str:
         return self.title 

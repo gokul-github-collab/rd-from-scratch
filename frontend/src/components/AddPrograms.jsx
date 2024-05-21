@@ -27,7 +27,7 @@ const AddPrograms = () => {
   const [type, setType] = useState("")
   const [description, setDescription] = useState("")
   const [location, setLocation] = useState("")
-  const [tuition_fee, setTuitionFee] = useState("")
+  // const [tuition_fee, setTuitionFee] = useState("")
 
 
   const navigate = useNavigate()
@@ -52,7 +52,7 @@ const AddPrograms = () => {
 
   const createCourse = (e) => {
     e.preventDefault()
-    api.post("/api/courses/", { name, type, description, location, tuition_fee }).
+    api.post("/api/courses/", { name, type, description, location }).
       then((res) => {
         if (res.status === 201) { toast.success("Course Created Successfully"); navigate(`/courses`) }
         else toast.error("Course haven't created")
@@ -135,21 +135,7 @@ const AddPrograms = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-2">
-                <label htmlFor="tuition_fee" className="block text-sm font-semibold leading-6 text-gray-900">
-                  Tuition Fee
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    name="tuition_fee"
-                    id="tuition_fee"
-                    value={tuition_fee}
-                    onChange={(e) => setTuitionFee(e.target.value)}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
+             
               <div className="sm:col-span-2">
                 <label htmlFor="description" className="block text-sm font-semibold leading-6 text-gray-900">
                   Description

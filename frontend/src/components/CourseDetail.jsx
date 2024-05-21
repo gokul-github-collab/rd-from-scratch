@@ -199,8 +199,8 @@ const CourseDetail = () => {
               <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
                 <h3 className="text-indigo-800 text-lg font-bold mb-6">Course Description</h3>
                 <p className="mb-4">{course.description}</p>
-                <h3 className="text-indigo-800 text-lg font-bold mb-2">Tuition Fees</h3>
-                <p className="mb-4">{course.tuition_fee} / semester</p>
+                {/* <h3 className="text-indigo-800 text-lg font-bold mb-2">Tuition Fees</h3>
+                <p className="mb-4">{course.tuition_fee} / semester</p> */}
               </div>
 
               <div className="bg-gradient-to-br from-purple-50 via-purple-50 to-indigo-50 bg-opacity-25 p-6 rounded-lg shadow-md mt-6">
