@@ -16,7 +16,6 @@ const AddCourseObjective = () => {
 
     const [isSuperUser, setIsSuperuser] = useState(false)
 
-    const [sno, setSno] = useState('')
     const [name, setName] = useState('')
     const [subject, setSubject] = useState(oneSubject ? oneSubject.id : "")
 
@@ -54,7 +53,7 @@ const AddCourseObjective = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const createCourseObjective = {
-            sno,
+
             name,
             subject: oneSubject ? oneSubject.id : ""
 
@@ -70,7 +69,7 @@ const AddCourseObjective = () => {
     const handleSaveAndAnother = (e) => {
         e.preventDefault();
         const createCourseObjective = {
-            sno,
+
             name,
             subject: oneSubject ? oneSubject.id : '',
         };
@@ -79,7 +78,7 @@ const AddCourseObjective = () => {
             .then((res) => {
                 toast.success('Course Objective created successfully');
                 // Clear form fields
-                setSno('');
+
                 setName('');
                 // Optionally, you can reset the subject as well
                 // setSubject('');
@@ -109,7 +108,7 @@ const AddCourseObjective = () => {
                     />
                 </div>
                 <div className="mx-auto max-w-2xl text-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Online Reference</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Course Objective</h2>
                     <p className="mt-2 text-lg leading-8 text-gray-600">
                         Aute magna irure deserunt veniam aliqua magna enim voluptate.
                     </p>
@@ -117,21 +116,7 @@ const AddCourseObjective = () => {
                 <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
 
-                        <div className="sm:col-span-2">
-                            <label htmlFor="sno" className="block text-sm font-semibold leading-6 text-gray-900">
-                                S. no
-                            </label>
-                            <div className="mt-2.5">
-                                <input
-                                    type="text"
-                                    name="sno"
-                                    id="sno"
-                                    value={sno}
-                                    onChange={(e) => setSno(e.target.value)}
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
+
 
                         <div className="sm:col-span-2">
                             <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -177,11 +162,11 @@ const AddCourseObjective = () => {
                         </button>
                     </div>
                     <button
-                                onClick={handleSaveAndAnother}
-                                className="mt-2 block w-full rounded-md bg-gray-300 px-3.5 py-2.5 text-center text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                            >
-                                Save and Another
-                            </button>
+                        onClick={handleSaveAndAnother}
+                        className="mt-2 block w-full rounded-md bg-gray-300 px-3.5 py-2.5 text-center text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                    >
+                        Save and Another
+                    </button>
                 </form>
             </div> : <NotFound />}
 
