@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
   },
   tableRow: {
     flexDirection: "row",
+    wrap: false, // Prevent breaking within the row
+    pageBreakInside: 'avoid',
+    pageBreakAfter: "auto",
   },
   tableCol: {
     flex: 1,

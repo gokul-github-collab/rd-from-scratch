@@ -50,13 +50,13 @@ const Navbar = () => {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <NavLink key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <NavLink key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-500">
               {item.name}
             </NavLink>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -94,7 +94,7 @@ const Navbar = () => {
               <div className="py-6">
                 <a
                   href="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-indigo-50"
                 >
                   Log in
                 </a>

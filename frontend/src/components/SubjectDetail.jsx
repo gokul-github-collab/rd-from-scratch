@@ -64,7 +64,7 @@ const [semester, setSemester] = useState(null)
       try {
         api.delete(`/api/subject/delete/${subject ? subject.id : ""}/`)
         toast.error('Subject deleted successfully')
-        navigate(`/courses`);
+        navigate(`/syllabus/${syllabus? syllabus.id: ""}`);
       } catch (err) {
         alert(err)
       }

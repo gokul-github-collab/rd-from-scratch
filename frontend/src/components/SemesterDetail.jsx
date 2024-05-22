@@ -119,19 +119,6 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const SemesterDetail = ({ semId }) => {
   const [semester, setSemester] = useState(null);
   const [subjectsDropdown, setSubjectsDropdown] = useState([]);
