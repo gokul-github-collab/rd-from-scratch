@@ -71,14 +71,14 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
   return (
     <div className="border border-gray-200 rounded p-4 mb-2">
       <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
-        <h2 className="text-lg font-medium">{question}   {isSuperuser && <>     <Link 
-            to={`/edit-semester/${id}`}
-            className=" mx-1 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-            Edit
-          </Link>
-           
+        <h2 className="text-lg font-medium">{question}   {isSuperuser && <>     <Link
+          to={`/edit-semester/${id}`}
+          className=" mx-1 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        >
+          <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+          Edit
+        </Link>
+
           <button
             type="button" onClick={handleDeleteSemester}
             className="mx-1 inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
@@ -86,26 +86,26 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
             <CheckIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
             Delete
           </button>
-          <Link 
+          <Link
             to={`/add-subject/${id}`}
             className=" mx-1 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             {/* <HiMiniPlusCircle className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"/> */}
             <PencilIcon className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-           Add Subject
-          </Link> 
-          </> }
-</h2>
+            Add Subject
+          </Link>
+        </>}
+        </h2>
         <SlArrowDown />
       </div>
       {isOpen && (
         <div className="mt-2">
           {subjectsDropdown.length > 0 && (
             <div>
-     
+
               <ul className="list-disc ml-6">
                 {subjectsDropdown.map(subject => (
-                <li key={subject.value}> <Link className='text-indigo-700' to={`/subject/${subject.value}`} >{subject.label}</Link> </li>
+                  <li key={subject.value}> <Link className='text-indigo-700' to={`/subject/${subject.value}`} >{subject.label}</Link> </li>
                 ))}
               </ul>
             </div>
@@ -115,6 +115,21 @@ const FAQItem1 = ({ question, pos, id, syllabus }) => {
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const SemesterDetail = ({ semId }) => {
@@ -136,14 +151,14 @@ const SemesterDetail = ({ semId }) => {
           // Create dropdown options for subjects
           const options = res.data.subjects.map(subject => ({
             value: subject.id,
-            label: `${subject.course_code} - ${subject.name}`
+            label: `${subject.course_code} - ${subject.name} - ${subject.t_or_p}`
           }));
           setSubjectsDropdown(options);
         }
       })
       .catch((err) => toast.error(err));
   };
-  
+
   const checkSuperuser = () => {
     api.get("/api/check_superuser/")
       .then((res) => {
@@ -159,16 +174,16 @@ const SemesterDetail = ({ semId }) => {
 
   return (
     <div>
-     
+
       {/* <button onClick={handleDeleteSemester} className="inline-block bg-gradient-to-tr from-red-500 to-red-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-red-600 hover:to-red-800 shadow-md">
         Delete Semester
       </button>
       <Link to={`/edit-semester/${semester ? semester.id : ""}`} className="inline-block bg-gradient-to-tr from-purple-500 to-purple-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-purple-600 hover:to-purple-800 shadow-md" >Edit Semester</Link> */}
 
-     
+
 
       {/* Render FAQItem1 */}
-      <FAQItem1 question={semester? semester.title: ""} id={semester? semester.id: ""} syllabus={semester? semester.syllabus: ""} pos={semester && semester.subjects} />
+      <FAQItem1 question={semester ? semester.title : ""} id={semester ? semester.id : ""} syllabus={semester ? semester.syllabus : ""} pos={semester && semester.subjects} />
     </div>
   );
 };
