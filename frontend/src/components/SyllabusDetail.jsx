@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../api';
 import SemesterDetail from './SemesterDetail';
 
 const SyllabusDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [isSuperUser, setIsSuperuser] = useState(false);
   const [syllabus, setSyllabus] = useState(null);
   const [course, setCourse] = useState(null);
@@ -48,52 +47,47 @@ const SyllabusDetail = () => {
   };
 
   return (
-    <div className="relative isolate px-6 pt-14 lg:px-8">
-      <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div
-          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-          }}
-        />
-      </div>
-      <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2 lg:items-start">
-          <div className="lg:col-span-1 lg:row-span-2">
-            <div className="lg:max-w-lg">
-              <p className="text-base font-semibold leading-7 text-indigo-600">{syllabus ? syllabus.year : ""}</p>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Syllabus for {course ? course.name : ""}</h1>
-              <p className="mt-6 text-xl leading-8 text-gray-700">
-                Right from the inception, the curriculum is taught by distinguished faculty members combining academic excellence and real-world experience with dedication and commitment. The department scales with innovatively designed programs which constantly get updated to meet the challenging requirement of the industry and stakeholders. We are proud to see many industries coming back to our department, which sustain to meet the dynamic corporate world.
+    <div className="relative min-h-screen bg-gray-50 py-24 px-4 sm:px-6 lg:px-8 mt-10">
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#ffc0cb] to-[#c0c0ff] opacity-40 transform rotate-45 blur-2xl" aria-hidden="true"></div>
+      <div className="relative max-w-6xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <header className="bg-gradient-to-r from-indigo-300 to-purple-300 p-6 sm:p-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm font-medium text-white">
+                {syllabus ? syllabus.year : ""}
               </p>
+              <h1 className="text-2xl font-bold text-white mt-1">
+               Syllabus for {course ? course.name : "Course Name"}
+              </h1>
             </div>
+            {isSuperUser && (
+              <Link
+                to={`/add-semester/${syllabus ? syllabus.id : ""}/${course ? course.id : ""}`}
+                className="bg-white text-indigo-600 hover:text-white hover:bg-indigo-600 font-semibold py-2 px-4 rounded-md shadow-md transition duration-300"
+              >
+                Add Semester
+              </Link>
+            )}
           </div>
-          <div className="lg:col-span-1 lg:row-span-2">
-            <div className="lg:max-w-lg text-base leading-7 text-gray-700">
-              {isSuperUser &&
-                <Link
-                  to={`/add-semester/${syllabus ? syllabus.id : ""}/${course ? course.id : ""}`}
-                  className="inline-block bg-gradient-to-tr from-indigo-500 to-indigo-700 mb-1 text-white rounded-lg px-4 py-2 hover:bg-indigo-600 hover:to-indigo-800 shadow-md"
-                >
-                  Add Semester
-                </Link>
-              }
+        </header>
+        <main className="p-6 sm:p-8">
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900">About the Course</h2>
+            <p className="text-gray-700 mt-4">
+              Right from the inception, the curriculum is taught by distinguished faculty members combining academic excellence and real-world experience with dedication and commitment. The department scales with innovatively designed programs which constantly get updated to meet the challenging requirement of the industry and stakeholders. We are proud to see many industries coming back to our department, which sustain to meet the dynamic corporate world.
+            </p>
+          </section>
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Semesters</h2>
+            <div className="grid grid-cols-1 gap-6">
               {syllabus && syllabus.sem && syllabus.sem.map((sem) => (
-                <SemesterDetail key={sem.id} semId={sem.id} />
+                <div key={sem.id} className="bg-gray-50 p-4 rounded-lg shadow-md">
+                  <SemesterDetail semId={sem.id} />
+                </div>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-        <div
-          className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%)',
-          }}
-        />
+          </section>
+        </main>
       </div>
     </div>
   );

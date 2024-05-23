@@ -225,6 +225,7 @@ const SubjectDetailPDF = ({ sid }) => {
 
 
             {subject && (subject.t_or_p === "Theory" || subject.t_or_p === "Theory and Practical") && (
+             
               <React.Fragment>
                 <View style={styles.tableRow}>
                   <View style={styles.tableCol}>
@@ -232,6 +233,7 @@ const SubjectDetailPDF = ({ sid }) => {
                   </View>
                 </View>
                 {subject.cc && subject.cc.map((cc, index) => (
+                   
                   <React.Fragment key={index}>
                     <View style={styles.tableRow}>
                       <View style={styles.tableCol}>
@@ -246,10 +248,11 @@ const SubjectDetailPDF = ({ sid }) => {
                       </View>
                     </View>
                   </React.Fragment>
+           
                 ))}
                 <View style={styles.tableRow}>
                   <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>Total Hours(L): 45</Text>
+                    <Text style={styles.tableCell}>Total Hours(L): 45 Hrs</Text>
                   </View>
                 </View>
               </React.Fragment>
