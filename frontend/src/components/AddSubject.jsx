@@ -48,21 +48,23 @@ const AddSubject = () => {
   const handleExternalMark = (e) => {
     const value = e.target.value
 
-    
+
     setExternalMark(value)
 
 
-    if(!isNaN(value)){
-      if(value >= 0 && value <= 100){
-      setInternalMark(100-parseInt(value))}
+    if (!isNaN(value)) {
+      if (value >= 0 && value <= 100) {
+        setInternalMark(100 - parseInt(value))
+      }
     }
   }
   const handleInternalMark = (e) => {
     const value = e.target.value
     setInternalMark(value)
-    if(!isNaN(value)){
-      if(value >= 0 && value <= 100){
-      setExternalMark(100-parseInt(value))}
+    if (!isNaN(value)) {
+      if (value >= 0 && value <= 100) {
+        setExternalMark(100 - parseInt(value))
+      }
     }
   }
   const isInvalidMark = (mark) => {
@@ -110,7 +112,7 @@ const AddSubject = () => {
             />
           </div>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Course</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Add Subject</h2>
             <p className="mt-2 text-lg leading-8 text-gray-600">
               Aute magna irure deserunt veniam aliqua magna enim voluptate.
             </p>
@@ -142,7 +144,7 @@ const AddSubject = () => {
                     name="course_code"
                     id="course_code"
                     value={course_code}
-                   
+
                     onChange={(e) => setCourseCode(e.target.value)}
                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -205,11 +207,10 @@ const AddSubject = () => {
                     value={internal_mark}
                     onChange={handleInternalMark}
                     className={`block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6
-                    ${
-                      isInvalidMark(internal_mark)
+                    ${isInvalidMark(internal_mark)
                         ? "focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         : ""
-                    }`}                  />
+                      }`} />
                 </div>
               </div>
               <div className="sm:col-span-2">
@@ -221,18 +222,17 @@ const AddSubject = () => {
                     type="text"
                     name="external_mark"
                     id="external_mark"
-                    
+
                     value={external_mark}
                     onChange={handleExternalMark}
                     className={`block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6
-                    ${
-                      isInvalidMark(external_mark)
+                    ${isInvalidMark(external_mark)
                         ? "focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         : ""
-                    }`}                  />
+                      }`} />
                 </div>
               </div>
-              
+
               <div className="sm:col-span-2">
                 <label htmlFor="t_or_p" className="block text-sm font-semibold leading-6 text-gray-900">
                   Theory or Practical
